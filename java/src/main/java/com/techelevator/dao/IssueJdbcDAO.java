@@ -10,16 +10,13 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class IssueJdbcDAO implements IssueDAO {
-    private JdbcTemplate template;
-
-    @Autowired
-    private IssueDAO issueDAO;
+    private final JdbcTemplate template;
 
     public IssueJdbcDAO(JdbcTemplate template) {
         this.template = template;
@@ -92,7 +89,6 @@ public class IssueJdbcDAO implements IssueDAO {
         issue.setDescription(rowSet.getString("description"));
         issue.setStartTime(rowSet.getTimestamp("start_time").toLocalDateTime());
         issue.setEndTime(rowSet.getTimestamp("end_time").toLocalDateTime());
-
         return issue;
     }
 

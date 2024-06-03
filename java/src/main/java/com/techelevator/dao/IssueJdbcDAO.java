@@ -3,19 +3,26 @@ package com.techelevator.dao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Issue;
 import com.techelevator.model.IssueDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class IssueJdbcDAO implements IssueDAO {
     private JdbcTemplate template;
 
-    public IssueJdbcDAO(DataSource ds) {
-        template = new JdbcTemplate(ds);
+    @Autowired
+    private IssueDAO issueDAO;
+
+    public IssueJdbcDAO(JdbcTemplate template) {
+        this.template = template;
     }
 
     @Override

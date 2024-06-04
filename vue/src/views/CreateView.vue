@@ -1,6 +1,6 @@
 <template>
   <div id='create'>
-    <form v-on:submit.prevent="create">
+    <form v-on:submit.prevent="createIssue">
       <h1>Create An Issue</h1>
       <div role="alert" v-if="creationErrors">
         {{ creationErrorMsg }}
@@ -21,6 +21,22 @@
         <label for="end_time">End Time</label>
         <input type="end_time" id="end_time" v-model="issue.end_time" required />
       </div>
+      <div class="form-input-group">
+        <label for="option1">option1</label>
+        <input type="text" id="option1" v-model="issue.option1" required />
+      </div>
+      <div class="form-input-group">
+        <label for="option2">option2</label>
+        <input type="text" id="option2" v-model="issue.option2" required />
+      </div>
+      <div class="form-input-group">
+        <label for="option3">option3</label>
+        <input type="text" id="option3" v-model="issue.option3" />
+      </div>
+      <div class="form-input-group">
+        <label for="option4">option4</label>
+        <input type="text" id="option4" v-model="issue.option4" />
+      </div>
       <button type="submit">Create Issue</button>
     </form>
 
@@ -39,6 +55,10 @@ export default {
                 description: '',
                 start_time: '',
                 end_time: '',
+                option1: '',
+                option2: '',
+                option3: '',
+                option4: '',
             },
             creationErrors: false,
             creationErrorMsg: 'There were problems creating the issue.'

@@ -72,9 +72,11 @@ public class IssueJdbcDAO implements IssueDAO {
     @Override
     public Issue createIssue(IssueDTO issue) {
         Issue newIssue = null;
-        String insertIssueSql = "INSERT INTO issue (name, description, start_time, end_time) values (?, ?, ?, ?) RETURNING id";
+        String insertIssueSql = "INSERT INTO issue (name, description, start_time, end_time," +
+                "option1, option2, option3, option4) values (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
         try {
-            int newIssueId = template.queryForObject(insertIssueSql, int.class, issue.getName(), issue.getDescription(), issue.getStart_time(), issue.getEnd_time());
+            int newIssueId = template.queryForObject(insertIssueSql, int.class, issue.getName(), issue.getDescription(),
+                    issue.getStart_time(), issue.getEnd_time(), issue.getOption1(), issue.getOption2(), issue.getOption3(), issue.getOption4());
             newIssue = getIssueById(newIssueId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server", e);
@@ -82,7 +84,15 @@ public class IssueJdbcDAO implements IssueDAO {
         return newIssue;
     }
 
+    /*public Issue updateIssue(IssueDTO issue) {
+        Issue newIssue = null;
+        String sql = "UPDATE ?\n" +
+                "SET ? = ?\n" +
+                "WHERE ? = '?';";
+        try {
 
+        }
+    }*/
 
 
     private Issue mapRowToIssue(SqlRowSet rowSet) {
@@ -92,6 +102,10 @@ public class IssueJdbcDAO implements IssueDAO {
         issue.setDescription(rowSet.getString("description"));
         issue.setStartTime(rowSet.getString("start_time"));
         issue.setEndTime(rowSet.getString("end_time"));
+        issue.setOption1(rowSet.getString("option1"));
+        issue.setOption2(rowSet.getString("option2"));
+        issue.setOption3(rowSet.getString("option3"));
+        issue.setOption4(rowSet.getString("option4"));
         return issue;
     }
 

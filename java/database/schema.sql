@@ -18,8 +18,23 @@ create table issue (
 	id SERIAL,
 	name VARCHAR(50),
 	description VARCHAR (200),
-	start_time TIMESTAMP,
-	end_time TIMESTAMP
+	start_time TEXT,
+	end_time TEXT,
+	option1 TEXT,
+	option2 TEXT,
+	option3 TEXT,
+	option4 TEXT
+	);
+
+create table voting (
+issue id
+user id
+vote1
+vote2
+vote3
+vote4
+transaction id
+)
 );
 
 COMMIT TRANSACTION;

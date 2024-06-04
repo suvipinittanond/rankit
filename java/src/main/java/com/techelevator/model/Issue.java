@@ -9,10 +9,10 @@ public class Issue {
     private int id;
     private String name;
     private String description;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private String startTime;
+    private String endTime;
 
-    public Issue(int id, String name, String description, LocalDateTime startTime, LocalDateTime endTime) {
+    public Issue(int id, String name, String description, String startTime, String endTime) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -48,19 +48,19 @@ public class Issue {
         this.description = description;
     }
 
-    public LocalDateTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime( String endTime) {
         this.endTime = endTime;
     }
 }

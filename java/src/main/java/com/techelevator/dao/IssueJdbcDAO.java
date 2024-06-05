@@ -40,7 +40,7 @@ public class IssueJdbcDAO implements IssueDAO {
     @Override
     public List<Issue> getIssue() {
         List<Issue> issues = new ArrayList<>();
-        String sql = "SELECT name, description, start_time, end_time FROM issue";
+        String sql = "SELECT * FROM issue";
         try {
             SqlRowSet rs = template.queryForRowSet(sql);
             while (rs.next()) {

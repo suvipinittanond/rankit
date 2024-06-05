@@ -8,4 +8,10 @@ export default {
     
     },
 
+    getIssues() {
+
+      return axios.get('/getissue');
+    
+    },
+
 }

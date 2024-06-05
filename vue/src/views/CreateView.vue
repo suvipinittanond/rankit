@@ -15,11 +15,11 @@
       </div>
       <div class="form-input-group">
         <label for="start_time">Start Time</label>
-        <input type="start_time" id="start_time" v-model="issue.start_time" required />
+        <input type="datetime-local" id="start_time" v-model="issue.start_time" required />
       </div>
       <div class="form-input-group">
-        <label for="end_time">End Time</label>
-        <input type="end_time" id="end_time" v-model="issue.end_time" required />
+        <label for="end_time">Start Time</label>
+        <input type="datetime-local" id="end_time" v-model="issue.end_time" required />
       </div>
       <div class="form-input-group">
         <label for="option1">option1</label>

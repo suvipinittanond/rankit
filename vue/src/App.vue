@@ -6,6 +6,8 @@
       </a>
       <div id="right-links">
         <router-link v-bind:to="{ name: 'createissue' }">Create Issue</router-link>
+        <router-link v-bind:to="{ name: 'issues' }">Issues</router-link>
+        
       </div>
 
       <div id="left-links">

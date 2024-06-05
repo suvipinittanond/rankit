@@ -1,34 +1,53 @@
 <template>
   <div id="capstone-app">
     <div id="topnav">
-      <a href="#"><img src="../assets/RankItWhiteNoBG.png" alt="Logo" id="logo"></a>
-      <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'createissue' }">Create Issue</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'login' }">Sign up or Log In</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+      <a href="/">
+        <img src="src/assets/RankItWhiteNoBG.png" alt="Logo" id="logo">
+      </a>
+      <div id="right-links">
+        <router-link v-bind:to="{ name: 'createissue' }">Create Issue</router-link>
+      </div>
+
+      <div id="left-links">
+        <router-link v-bind:to="{ name: 'login' }">Sign up or Log In</router-link>&nbsp;|&nbsp;
+        <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+      </div>
+
     </div>
     <router-view />
   </div>
 </template>
+
 <style scoped>
 #topnav {
   overflow: hidden;
   background-color: #020301;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 #topnav a {
-  float: left;
-  display: block;
   color: #E4E4E4;
-  text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
+  padding: 14px 16px;
 }
+
 #topnav a:hover {
   background-color: #020301;
   color: #8FA9B1;
+  text-decoration: underline;
 }
-#topnav a.active {
-  background-color: #E4E4E4;
-  color: 8FA9B1;
+
+#logo {
+  height: 50px; /* Adjust the height as needed */
+}
+
+#right-links {
+  margin-left: 20px;
+}
+
+#left-links {
+  margin-right: 20px;
 }
 </style>

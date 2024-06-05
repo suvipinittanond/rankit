@@ -14,27 +14,26 @@ CREATE TABLE users (
 --put table creation statements here
 
 
-create table issue (
-	id SERIAL,
-	name VARCHAR(50),
-	description VARCHAR (200),
-	start_time TEXT,
-	end_time TEXT,
-	option1 TEXT,
-	option2 TEXT,
-	option3 TEXT,
-	option4 TEXT
-	);
+CREATE TABLE issue (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(200),
+    start_time TEXT,
+    end_time TEXT,
+    option1 TEXT,
+    option2 TEXT,
+    option3 TEXT,
+    option4 TEXT
+);
 
-create table voting (
-issue id
-user id
-vote1
-vote2
-vote3
-vote4
-transaction id
-)
+CREATE TABLE Votes (
+    vote_id SERIAL PRIMARY KEY,
+    user_id INT,
+    issue_id INT,
+    selected_option INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (issue_id) REFERENCES issue(id),
+    UNIQUE (user_id, issue_id)
 );
 
 COMMIT TRANSACTION;

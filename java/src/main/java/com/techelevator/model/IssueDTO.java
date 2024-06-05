@@ -12,6 +12,15 @@ public class IssueDTO {
         this.end_time = end_time;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
     @NotEmpty
     private String end_time;
     @NotEmpty

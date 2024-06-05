@@ -3,12 +3,10 @@ package com.techelevator.dao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Issue;
 import com.techelevator.model.IssueDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ public class IssueJdbcDAO implements IssueDAO {
     @Override
     public Issue getIssueById(int issueId) {
         Issue issue = null;
-        String sql = "SELECT name, description, start_time, end_time FROM issue WHERE id = ?";
+        String sql = "SELECT * FROM issue WHERE id = ?";
         try {
             SqlRowSet rs = template.queryForRowSet(sql, issueId);
             if (rs.next()) {
@@ -57,7 +55,7 @@ public class IssueJdbcDAO implements IssueDAO {
     public Issue getIssueByName(String name) {
         if (name == null) throw new IllegalArgumentException("Name cannot be null");
         Issue issue = null;
-        String sql = "SELECT name, description, start_time, end_time FROM issue WHERE name = LOWER(TRIM(?))";
+        String sql = "SELECT * FROM issue WHERE name = LOWER(TRIM(?))";
         try {
             SqlRowSet rs = template.queryForRowSet(sql, name);
             if (rs.next()) {
@@ -72,8 +70,7 @@ public class IssueJdbcDAO implements IssueDAO {
     @Override
     public Issue createIssue(IssueDTO issue) {
         Issue newIssue = null;
-        String insertIssueSql = "INSERT INTO issue (name, description, start_time, end_time," +
-                "option1, option2, option3, option4) values (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+        String insertIssueSql = "INSERT INTO issue (name, description, start_time, end_time, option1, option2, option3, option4) values (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
         try {
             int newIssueId = template.queryForObject(insertIssueSql, int.class, issue.getName(), issue.getDescription(),
                     issue.getStart_time(), issue.getEnd_time(), issue.getOption1(), issue.getOption2(), issue.getOption3(), issue.getOption4());
@@ -84,20 +81,41 @@ public class IssueJdbcDAO implements IssueDAO {
         return newIssue;
     }
 
-    /*public Issue updateIssue(IssueDTO issue) {
-        Issue newIssue = null;
-        String sql = "UPDATE ?\n" +
-                "SET ? = ?\n" +
-                "WHERE ? = '?';";
+    @Override
+    public Issue updateIssue(IssueDTO issue) {
+        Issue updatedIssue = null;
+        String updatedIssueSql = "UPDATE issue SET name = ?, description = ?, start_time = ?, end_time = ?, option1 = ?, option2 = ?, option3 = ?, option4 = ? WHERE id = ?";
         try {
 
+        int newUpdateId = template.update(updatedIssueSql, issue.getName(), issue.getDescription(), issue.getStart_time(), issue.getEnd_time(), issue.getOption1(), issue.getOption2(), issue.getOption3(), issue.getOption4(), issue.getId());
+
+        if (newUpdateId > 0) {
+            updatedIssue = getIssueById(issue.getId());
         }
-    }*/
+        } catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server", e);
+            }
+        return updatedIssue;
+    }
+
+    @Override
+    public Issue deleteIssue(int IssueId) {
+        String deletesql = "DELETE FROM issue WHERE id = ?";
+        try {
+            int deleteID = template.update(deletesql, IssueId);
+            if (deleteID == 0) {
+                throw new DaoException("Issue ID not found " + IssueId);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server", e);
+        }
+        return null;
+    }
 
 
     private Issue mapRowToIssue(SqlRowSet rowSet) {
         Issue issue = new Issue();
-        //issue.setId(rowSet.getInt("id"));
+        issue.setId(rowSet.getInt("id"));
         issue.setName(rowSet.getString("name"));
         issue.setDescription(rowSet.getString("description"));
         issue.setStartTime(rowSet.getString("start_time"));

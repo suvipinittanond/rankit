@@ -15,9 +15,7 @@ public interface IssueDAO {
     Issue createIssue(IssueDTO issue);
 
 
+    Issue updateIssue(IssueDTO issue);
 
-
-
-
-
+    Issue deleteIssue(int IssueId);
 }

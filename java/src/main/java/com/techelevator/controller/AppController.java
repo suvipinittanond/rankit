@@ -35,6 +35,34 @@ public class AppController {
         }
     }
 
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @RequestMapping(path = "/updateissue", method = RequestMethod.PUT)
+    public void updateIssue (@RequestBody IssueDTO issueDTO){
+        try {
+            Issue updatedIssue = issueDAO.updateIssue(issueDTO);
+            if (updatedIssue == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Issue Update has failed");
+        }
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(path = "/deleteissue/{id}", method = RequestMethod.DELETE)
+    public void deleteIssue(@PathVariable int id) {
+        try {
+            Issue issueDelete = issueDAO.getIssueById(id);
+            if (issueDelete == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            } else {
+                issueDAO.deleteIssue(id);
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Issue Delete has failed");
+        }
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/getissue", method = RequestMethod.GET)
     public List<Issue> getIssue() {

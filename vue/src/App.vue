@@ -40,14 +40,12 @@
 }
 
 #logo {
-  height: 50px; /* Adjust the height as needed */
+  height: 50px;
+  margin-left: 200px; 
 }
 
-#right-links {
-  margin-left: 20px;
-}
 
 #left-links {
-  margin-right: 20px;
+  margin-right: 200px;
 }
 </style>

@@ -1,7 +1,8 @@
 <template>
   <div id="login" class='login-container'>
+    <img src='../assets/RankItSloganNoBG.png' alt='Image' class='login-logo'/>
     <form v-on:submit.prevent="login" class='login-form'>
-      <h1>Please Sign In</h1>
+      <h1>Login</h1>
       <div role="alert" v-if="invalidCredentials" class='alert-error'>
         Invalid username and password!
       </div>
@@ -9,12 +10,11 @@
         Thank you for registering, please sign in.
       </div>
       <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
+        <input type="text" id="username" v-model="user.username" placeholder='Username' class='input-box' required autofocus />
       </div>
       <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
+
+        <input type="password" id="password" v-model="user.password" placeholder='Password' class='input-box' required />
       </div>
       <button type="submit">Sign in</button>
       <p>
@@ -62,7 +62,6 @@ export default {
 
 <style scoped>
 
-
 .form-input-group {
   margin-bottom: 1rem;
 }
@@ -70,13 +69,45 @@ label {
   margin-right: 0.5rem;
 }
 
+h1 {
+  text-align: center;
+  padding-bottom: 10px;
+
+}
 
 .login-container {
+  text-align: center;
+  padding-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #E4E4E4;
-  height: 100vh
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-form {
+  background-color: #c9c9c6;
+  height: 400px;
+  width: 350px;
+  border-radius: 40px;
+}
+
+label {
+  display: block;
+  font-weight: bold
+}
+
+button {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #8FA9B1;
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif
+}
+.input-box {
+  border-radius: 15px;
+  padding: 12px;
 }
 
 </style>

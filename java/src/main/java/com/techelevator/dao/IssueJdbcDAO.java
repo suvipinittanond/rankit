@@ -128,5 +128,4 @@ public class IssueJdbcDAO implements IssueDAO {
     }
 
 
-
 }

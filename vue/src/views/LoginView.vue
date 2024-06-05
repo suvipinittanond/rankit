@@ -1,11 +1,11 @@
 <template>
-  <div id="login">
-    <form v-on:submit.prevent="login">
-      <h1 >Please Sign In</h1>
-      <div role="alert" v-if="invalidCredentials">
+  <div id="login" class='login-container'>
+    <form v-on:submit.prevent="login" class='login-form'>
+      <h1>Please Sign In</h1>
+      <div role="alert" v-if="invalidCredentials" class='alert-error'>
         Invalid username and password!
       </div>
-      <div role="alert" v-if="this.$route.query.registration">
+      <div role="alert" v-if="this.$route.query.registration" class='alert-registration'>
         Thank you for registering, please sign in.
       </div>
       <div class="form-input-group">
@@ -61,10 +61,22 @@ export default {
 </script>
 
 <style scoped>
+
+
 .form-input-group {
   margin-bottom: 1rem;
 }
 label {
   margin-right: 0.5rem;
 }
+
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E4E4E4;
+  height: 100vh
+}
+
 </style>

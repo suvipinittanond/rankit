@@ -1,6 +1,6 @@
 <template>
   <div id="login" class='login-container'>
-    <img src='../assets/RankItSloganNoBG.png' alt='Image' class='login-logo'/>
+      <img src='../assets/RankItSloganNoBG.png' alt='Image' class='login-logo'/>
     <form v-on:submit.prevent="login" class='login-form'>
       <h1>Login</h1>
       <div role="alert" v-if="invalidCredentials" class='alert-error'>

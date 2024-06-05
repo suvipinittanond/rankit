@@ -29,11 +29,11 @@ CREATE TABLE issue (
 CREATE TABLE Votes (
     vote_id SERIAL PRIMARY KEY,
     user_id INT,
-    issue_id INT,
+    id INT,
     selected_option INT,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (issue_id) REFERENCES issue(id),
-    UNIQUE (user_id, issue_id)
+    FOREIGN KEY (id) REFERENCES issue(id),
+    UNIQUE (user_id, id)
 );
 
 COMMIT TRANSACTION;

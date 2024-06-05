@@ -3,12 +3,11 @@ package com.techelevator.dao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Issue;
 import com.techelevator.model.IssueDTO;
+import com.techelevator.model.Vote;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,9 @@ public class IssueJdbcDAO implements IssueDAO {
     public IssueJdbcDAO(JdbcTemplate template) {
         this.template = template;
     }
+
+
+
 
     @Override
     public Issue getIssueById(int issueId) {
@@ -111,6 +113,8 @@ public class IssueJdbcDAO implements IssueDAO {
         }
         return null;
     }
+
+
 
 
     private Issue mapRowToIssue(SqlRowSet rowSet) {

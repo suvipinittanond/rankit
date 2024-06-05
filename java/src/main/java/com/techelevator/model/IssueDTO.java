@@ -1,7 +1,7 @@
 package com.techelevator.model;
 
 import javax.validation.constraints.NotEmpty;
-import java.sql.Timestamp;
+
 
 public class IssueDTO {
     public String getEnd_time() {

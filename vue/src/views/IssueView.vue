@@ -1,17 +1,28 @@
 <template>
-<div class='issues'>
-  <h1>Issues</h1>
-  <ul class='issue-list'>
+  <div class="issues">
+    <h1>Issues</h1>
+    <ul class="issue-list">
       <li v-for="issue in issues" :key="issue.id">
         <div class="issue-item">
           <h3>{{ issue.name }}</h3>
           <p>{{ issue.description }}</p>
-          <p>{{ issue.option1 }}</p>
-          <p>{{ issue.option2 }}</p>
+          <form @submit.prevent="submitVote(issue.id)" class="vote-form">
+            <div class="options">
+              <label class="option">
+                <input type="radio" v-model="selectedOption[issue.id]" value="1" class="radio-input">
+                <span class="option-text">{{ issue.option1 }}</span>
+              </label>
+              <label class="option">
+                <input type="radio" v-model="selectedOption[issue.id]" value="2" class="radio-input">
+                <span class="option-text">{{ issue.option2 }}</span>
+              </label>
+            </div>
+            <button type="submit" class="submit-button">Submit Vote</button>
+          </form>
         </div>
       </li>
     </ul>
-</div>
+  </div>
 </template>
 
 <script>
@@ -20,51 +31,105 @@ import IssueService from '../services/IssueService.js';
 export default {
   data() {
     return {
-      issues: []
+      issues: [],
+      selectedOption: {}
     }
   },
   created() {
-    IssueService.getIssues()
-    .then(
-      (response) => {
-        this.issues = response.data;
-      });
+    this.loadIssues();
+  },
+  methods: {
+    loadIssues() {
+      IssueService.getIssues()
+        .then(response => {
+          this.issues = response.data;
+        })
+        .catch(error => {
+          console.error('Error loading issues:', error);
+        });
+    },
+    submitVote(issueId) {
+      const selectedOption = this.selectedOption[issueId];
+      IssueService.submitVote(issueId, selectedOption)
+        .then(() => {
+          console.log('Vote submitted successfully');
+          // Look at issues after submitting the vote i think??
+          this.loadIssues();
+        })
+        .catch(error => {
+          console.error('Error submitting vote:', error);
+          alert('Failed to submit vote. Please try again later.');
+        });
+    }
   }
 };
 </script>
 
-<style>
-body {
-  background-color: #E4E4E4;
-}
-h1 {
-  font-size: 60px;
-}
-
-.issues { 
+<style scoped>
+.issues {
   display: flex;
   flex-direction: column;
   align-items: center;
-} 
+}
+
 .issue-list {
   display: flex;
   flex-direction: column;
   align-items: center;
   list-style: none;
-  padding: 0; width: 100%; 
-} 
-.issue-item { 
-  background-color: #C9C9C6; 
-  height: 400px; 
-  width: 350px; 
-  padding: 40px;
-  margin-top: 30px; 
-  margin-bottom: 30px; 
-  border-radius: 50px; 
-  text-align: center; 
-} 
+  padding: 0;
+  width: 100%;
+}
 
-div {
-  font-family: Arial, Helvetica, sans-serif;
+.issue-item {
+  background-color: #C9C9C6;
+  height: auto;
+  width: 350px;
+  padding: 40px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-radius: 50px;
+  text-align: center;
+}
+
+.vote-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.option {
+  margin-bottom: 10px;
+}
+
+.radio-input {
+  margin-right: 5px;
+}
+
+.submit-button {
+  background-color: #FFDB15;
+  color: #020301;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+.option-text {
+  font-size: 16px;
 }
 </style>

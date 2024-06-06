@@ -14,4 +14,8 @@ export default {
     
     },
 
+    submitVote(voteDTO) {
+      return axios.post('/vote', voteDTO);
+    }
+
 }

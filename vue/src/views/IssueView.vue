@@ -4,21 +4,23 @@
     <ul class="issue-list">
       <li v-for="issue in issues" :key="issue.id">
         <div class="issue-item">
-          <h3>{{ issue.name }}</h3>
-          <p>{{ issue.description }}</p>
-          <form @submit.prevent="submitVote(issue.id)" class="vote-form">
-            <div class="options">
-              <label class="option">
-                <input type="radio" v-model="selectedOption[issue.id]" value="1" class="radio-input">
-                <span class="option-text">{{ issue.option1 }}</span>
-              </label>
-              <label class="option">
-                <input type="radio" v-model="selectedOption[issue.id]" value="2" class="radio-input">
-                <span class="option-text">{{ issue.option2 }}</span>
-              </label>
-            </div>
-            <button type="submit" class="submit-button">Submit Vote</button>
-          </form>
+          <h3 @click="toggleIssue(issue.id)">{{ issue.name }}</h3>
+          <div v-if="!issue.minimized">
+            <p>{{ issue.description }}</p>
+            <form @submit.prevent="submitVote(issue.id)" class="vote-form">
+              <div class="options">
+                <label class="option">
+                  <input type="radio" v-model="selectedOption[issue.id]" value="1" class="radio-input">
+                  <span class="option-text">{{ issue.option1 }}</span>
+                </label>
+                <label class="option">
+                  <input type="radio" v-model="selectedOption[issue.id]" value="2" class="radio-input">
+                  <span class="option-text">{{ issue.option2 }}</span>
+                </label>
+              </div>
+              <button type="submit" class="submit-button">Submit Vote</button>
+            </form>
+          </div>
         </div>
       </li>
     </ul>
@@ -42,7 +44,10 @@ export default {
     loadIssues() {
       IssueService.getIssues()
         .then(response => {
-          this.issues = response.data;
+          this.issues = response.data.map(issue => ({
+            ...issue,
+            minimized: true
+          }));
         })
         .catch(error => {
           console.error('Error loading issues:', error);
@@ -53,13 +58,18 @@ export default {
       IssueService.submitVote(issueId, selectedOption)
         .then(() => {
           console.log('Vote submitted successfully');
-          // Look at issues after submitting the vote i think??
           this.loadIssues();
         })
         .catch(error => {
           console.error('Error submitting vote:', error);
           alert('Failed to submit vote. Please try again later.');
         });
+    },
+    toggleIssue(issueId) {
+      const issue = this.issues.find(issue => issue.id === issueId);
+      if (issue) {
+        issue.minimized = !issue.minimized;
+      }
     }
   }
 };
@@ -131,5 +141,9 @@ export default {
 
 .option-text {
   font-size: 16px;
+}
+
+.issue-item h3 {
+  cursor: pointer;
 }
 </style>

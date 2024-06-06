@@ -39,15 +39,16 @@
       </div>
       <button type="submit">Create Issue</button>
     </form>
-
   </div>
 </template>
-
 <script>
-
 import IssueService from '../services/IssueService';
-
 export default {
+  computed: { 
+    isAdmin() {
+      return $store.state.user.authorities[0].name === 'ADMIN_USER'
+    }
+  },
     data() {
         return {
             issue: {
@@ -87,7 +88,6 @@ export default {
     }
 }
 </script>
-
 <style scoped>
 .form-input-group {
   margin-bottom: 1rem;

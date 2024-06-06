@@ -1,11 +1,15 @@
 <template>
   <div id="capstone-app">
+    <!-- A: {{ this.$store.state.user }}
+    B: {{ $store.state.user }} -->
     <div id="topnav">
       <a href="/">
         <img src="src/assets/RankItWhiteNoBG.png" alt="Logo" id="logo">
       </a>
+      {{ isAdmin }}
       <div id="right-links">
-        <router-link v-bind:to="{ name: 'createissue' }" v-if ="$store.state.user.authorities[0].name === 'ROLE_ADMIN'" >Create Issue</router-link>
+        <router-link v-bind:to="{ name: 'createissue' }" v-if ='isAdmin' >Create Issue</router-link>
+        <!-- <router-link v-bind:to="{ name: 'createissue' }"  >Create Issue</router-link> -->
         <router-link v-bind:to="{ name: 'issues' }">Issues</router-link>
       </div>
       <div id="left-links">
@@ -21,7 +25,15 @@
 export default {
   computed: { 
     isAdmin() {
+      // console.log('DEBUG**')
+      // console.log(Object.keys(this.$store.state.user).length)
+
+      if(Object.keys(this.$store.state.user).length === 0){
+        return false;
+      }
+
       return this.$store.state.user.authorities[0].name === 'ROLE_ADMIN';
+      
     }
   }
 };

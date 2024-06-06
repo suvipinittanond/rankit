@@ -10,12 +10,20 @@
             <form @submit.prevent="submitVote(issue.id)" class="vote-form">
               <div class="options">
                 <label class="option">
-                  <input type="radio" v-model="selectedOption[issue.id]" value="1" class="radio-input">
+                  <input type="radio" v-model="selectedOption.issueID" value="1" class="radio-input">
                   <span class="option-text">{{ issue.option1 }}</span>
                 </label>
                 <label class="option">
-                  <input type="radio" v-model="selectedOption[issue.id]" value="2" class="radio-input">
+                  <input type="radio" v-model="selectedOption.issueID" value="2" class="radio-input">
                   <span class="option-text">{{ issue.option2 }}</span>
+                </label>
+                <label class="option">
+                  <input type="radio" v-model="selectedOption.issueID" value="3" class="radio-input">
+                  <span class="option-text">{{ issue.option3 }}</span>
+                </label>
+                <label class="option">
+                  <input type="radio" v-model="selectedOption.issueID" value="4" class="radio-input">
+                  <span class="option-text">{{ issue.option4 }}</span>
                 </label>
               </div>
               <button type="submit" class="submit-button">Submit Vote</button>
@@ -34,7 +42,7 @@ export default {
   data() {
     return {
       issues: [],
-      selectedOption: {}
+      selectedOption: {issueID : 0}
     }
   },
   created() {
@@ -54,7 +62,7 @@ export default {
         });
     },
     submitVote(issueId) {
-      const selectedOption = this.selectedOption[issueId];
+      const selectedOption = this.selectedOption.issueID;
       IssueService.submitVote(issueId, selectedOption)
         .then(() => {
           console.log('Vote submitted successfully');

@@ -14,7 +14,12 @@ export default {
     
     },
 
-    submitVote(voteDTO) {
+    submitVote(issueId, selectedOption) {
+      let voteDTO = {
+        issueId : issueId,
+        selectedOption: selectedOption,
+        userId: 1
+      }
       return axios.post('/vote', voteDTO);
     }
 

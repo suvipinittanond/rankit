@@ -18,7 +18,7 @@
         <input type="datetime-local" id="start_time" v-model="issue.start_time" required />
       </div>
       <div class="form-input-group">
-        <label for="end_time">Start Time</label>
+        <label for="end_time">End Time</label>
         <input type="datetime-local" id="end_time" v-model="issue.end_time" required />
       </div>
       <div class="form-input-group">
@@ -41,53 +41,70 @@
     </form>
   </div>
 </template>
+
 <script>
 import IssueService from '../services/IssueService';
+
 export default {
   computed: { 
     isAdmin() {
-      return this.$store.state.user.authorities[0].name === 'ADMIN_USER'
+      return this.$store.state.user.authorities[0].name === 'ADMIN_USER';
     }
   },
-    data() {
-        return {
-            issue: {
-                name: '',
-                description: '',
-                start_time: '',
-                end_time: '',
-                option1: '',
-                option2: '',
-                option3: '',
-                option4: '',
-            },
-            creationErrors: false,
-            creationErrorMsg: 'There were problems creating the issue.'
-        };
+  data() {
+    return {
+      issue: {
+        name: '',
+        description: '',
+        start_time: '',
+        end_time: '',
+        option1: '',
+        option2: '',
+        option3: '',
+        option4: '',
+      },
+      creationErrors: false,
+      creationErrorMsg: 'There were problems creating the issue.'
+    };
+  },
+  methods: {
+    createIssue() {
+      IssueService.createIssue(this.issue)
+        .then((response) => {
+          if (response.status === 201) {
+            this.$router.push({
+              path: '/createissue',
+              query: { registration: 'success' },
+            });
+            this.resetForm();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          this.creationErrors = true;
+          if (response.status === 400) {
+            this.creationErrorMsg = 'Bad Request: Validation Errors';
+          }
+        });
     },
-    methods: {
-        createIssue() {
-            IssueService
-            .createIssue(this.issue)
-            .then((response) => {
-            if (response.status == 201) {
-              this.$router.push({
-                path: '/createissue',
-                query: { registration: 'success' },
-              });
-            }
-          })
-          .catch((error) => {
-            const response = error.response;
-            this.creationErrors = true;
-            if (response.status === 400) {
-              this.creationErrorMsg = 'Bad Request: Validation Errors';
-            }
-          });
-        }
+    resetForm() {
+      this.issue = {
+        name: '',
+        description: '',
+        start_time: '',
+        end_time: '',
+        option1: '',
+        option2: '',
+        option3: '',
+        option4: '',
+      };
+      this.creationErrors = false;
+      this.creationErrorMsg = 'There were problems creating the issue.';
     }
+  }
 }
 </script>
+
 <style scoped>
 .form-input-group {
   margin-bottom: 1rem;

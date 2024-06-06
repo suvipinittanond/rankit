@@ -5,7 +5,7 @@
         <img src="src/assets/RankItWhiteNoBG.png" alt="Logo" id="logo">
       </a>
       <div id="right-links">
-        <router-link v-bind:to="{ name: 'createissue' }" v-if ='isAdmin' >Create Issue</router-link>
+        <router-link v-bind:to="{ name: 'createissue' }" v-if ="$store.state.user.authorities[0].name === 'ROLE_ADMIN'" >Create Issue</router-link>
         <router-link v-bind:to="{ name: 'issues' }">Issues</router-link>
       </div>
       <div id="left-links">
@@ -14,7 +14,6 @@
       </div>
     </div>
     <router-view />
-    {{ $store.state.user.authorities[0].name }}
   </div>
 </template>
 

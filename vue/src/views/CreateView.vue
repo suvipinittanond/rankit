@@ -46,7 +46,7 @@ import IssueService from '../services/IssueService';
 export default {
   computed: { 
     isAdmin() {
-      return $store.state.user.authorities[0].name === 'ADMIN_USER'
+      return this.$store.state.user.authorities[0].name === 'ADMIN_USER'
     }
   },
     data() {

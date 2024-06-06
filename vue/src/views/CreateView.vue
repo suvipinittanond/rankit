@@ -46,7 +46,7 @@
 import IssueService from '../services/IssueService';
 
 export default {
-  computed: { 
+  computed: {
     isAdmin() {
       return this.$store.state.user.authorities[0].name === 'ADMIN_USER';
     }
@@ -102,7 +102,7 @@ export default {
       this.creationErrorMsg = 'There were problems creating the issue.';
     }
   }
-}
+};
 </script>
 
 <style scoped>

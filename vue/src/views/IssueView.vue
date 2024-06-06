@@ -34,23 +34,37 @@ export default {
 </script>
 
 <style>
-.issue-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  padding: 0;
+body {
+  background-color: #E4E4E4;
+}
+h1 {
+  font-size: 60px;
 }
 
-.issue-item {
-  
-  background-color: #c9c9c6;
-  height: 400px;
-  width: 350px;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+.issues { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} 
+.issue-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  padding: 0; width: 100%; 
+} 
+.issue-item { 
+  background-color: #C9C9C6; 
+  height: 400px; 
+  width: 350px; 
+  padding: 40px;
+  margin-top: 30px; 
+  margin-bottom: 30px; 
+  border-radius: 50px; 
   text-align: center; 
-  
+} 
+
+div {
+  font-family: Arial, Helvetica, sans-serif;
 }
 </style>

@@ -5,7 +5,7 @@
         <img src="src/assets/RankItWhiteNoBG.png" alt="Logo" id="logo">
       </a>
       <div id="right-links">
-        <router-link v-bind:to="{ name: 'createissue' }">Create Issue</router-link>
+        <!-- <router-link v-bind:to="{ name: 'createissue' }">Create Issue</router-link> -->
         <router-link v-bind:to="{ name: 'issues' }">Issues</router-link>
         
       </div>
@@ -43,11 +43,12 @@
 
 #logo {
   height: 50px;
-  margin-left: 200px; 
+  margin-left: 175px; 
 }
 
 
 #left-links {
   margin-right: 200px;
 }
+
 </style>

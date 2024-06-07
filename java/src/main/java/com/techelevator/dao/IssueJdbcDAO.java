@@ -103,14 +103,22 @@ public class IssueJdbcDAO implements IssueDAO {
     @Override
     public Issue deleteIssue(int IssueId) {
         String deletesql = "DELETE FROM issue WHERE id = ?";
+        String deletesql2 = "DELETE FROM votes WHERE id = ?";
+
         try {
-            int deleteID = template.update(deletesql, IssueId);
-            if (deleteID == 0) {
+            // Execute the first delete query
+            int deleteID1 = template.update(deletesql, IssueId);
+            // Execute the second delete query
+            int deleteID2 = template.update(deletesql2, IssueId);
+
+            // Check if any rows were affected by either of the delete queries
+            if (deleteID1 == 0 && deleteID2 == 0) {
                 throw new DaoException("Issue ID not found " + IssueId);
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server", e);
         }
+
         return null;
     }
 

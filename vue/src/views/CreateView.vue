@@ -1,9 +1,13 @@
 <template>
   <div id='create'>
     <form v-on:submit.prevent="createIssue">
-      <h1>Create An Issue</h1>
+      <h1>Manage Issues</h1>
       <div role="alert" v-if="creationErrors">
         {{ creationErrorMsg }}
+      </div>
+      <div class="form-input-group">
+        <label for="name">Issue Id</label>
+        <input type="text" id="id" v-model="issue.id" />
       </div>
       <div class="form-input-group">
         <label for="name">Name</label>
@@ -37,11 +41,12 @@
         <label for="option4">Option 4</label>
         <input type="text" id="option4" v-model="issue.option4" />
       </div>
-      <button type="submit">Create Issue</button>
+      <button type="submit">Create</button>
+      <button type="button" v-on:click="updateIssue">Update</button>
+      <button type="button" v-on:click="deleteIssue">Delete</button>
     </form>
   </div>
 </template>
-
 <script>
 import IssueService from '../services/IssueService';
 
@@ -54,6 +59,7 @@ export default {
   data() {
     return {
       issue: {
+        id: '',
         name: '',
         description: '',
         start_time: '',
@@ -67,9 +73,61 @@ export default {
       creationErrorMsg: 'There were problems creating the issue.'
     };
   },
+  mounted() {
+    this.loadIssueData();
+  },
   methods: {
+    loadIssueData() {
+      const issueId = this.$route.params.issueId;
+      IssueService.getIssue(issueId)
+      .then((response) => {
+        this.issue = response.data;
+      })
+    },
+  
     createIssue() {
       IssueService.createIssue(this.issue)
+        .then((response) => {
+          if (response.status === 201) {
+            this.$router.push({
+              path: '/createissue',
+              query: { registration: 'success' },
+            });
+            this.resetForm();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          this.creationErrors = true;
+          if (response.status === 400) {
+            this.creationErrorMsg = 'Bad Request: Validation Errors';
+          }
+        });
+    },
+
+  updateIssue() {
+  const issueId = this.issue.id; 
+  IssueService.updateIssue(issueId, this.issue) 
+    .then((response) => {
+      if (response.status === 200) { 
+        this.$router.push({
+          path: '/createissue',
+          query: { registration: 'success' }, 
+        });
+        this.resetForm();
+      }
+    })
+    .catch((error) => {
+      const response = error.response;
+      this.creationErrors = true;
+      if (response.status === 400) {
+        this.creationErrorMsg = 'Bad Request: Validation Errors';
+      }
+    });
+},
+    deleteIssue(issue) {
+      const issueId = this.issue.id; 
+      IssueService.deleteIssue(issueId, this.issue)
         .then((response) => {
           if (response.status === 201) {
             this.$router.push({
@@ -104,6 +162,14 @@ export default {
   }
 };
 </script>
+<style scoped>
+.form-input-group {
+  margin-bottom: 1rem;
+}
+label {
+  margin-right: 0.5rem;
+}
+</style>
 
 <style scoped>
 .form-input-group {

@@ -25,3 +25,26 @@ export default {
   deleteIssue(issueId, issue) {
     return axios.delete(`/deleteissue/${issueId}`, issue); }
 };
+
+    getIssues() {
+
+      return axios.get('/getissue');
+    
+    },
+
+    submitVote(issueId, selectedOption, userId) {
+      
+      let voteDTO = {
+        issueId : issueId,
+        selectedOption: selectedOption,
+        userId: userId
+      }
+      return axios.post('/vote', voteDTO);
+    },
+
+    getResults(issueId) {
+
+      return axios.get(`/getvote/${issueId}`);
+    }
+
+

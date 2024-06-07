@@ -54,7 +54,7 @@ export default {
 }
 #logo {
   height: 50px;
-  margin-left: 175px;
+  margin-left: 150px;
 }
 #left-links {
   margin-right: 200px;

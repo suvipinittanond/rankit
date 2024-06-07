@@ -1,0 +1,15 @@
+{
+  "name": "java-green-finalcapstone-team7",
+  "version": "1.0.0",
+  "description": "​ This directory contains all of the starter projects for the final capstone. ​ Each project contains instructions that provides information about the starting code and explains how to get started with the final capstone project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.techelevator.com/campuses/nlr/mar-2024/java-green/student-pairs/java-green-finalcapstone-team7.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

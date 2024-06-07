@@ -72,6 +72,14 @@ const routes = [
     meta: {
       requiresAuth: false
     }
+  },
+  {
+    path: '/getvote/1',
+    name: "getvote",
+    component: ResultView,
+    meta: {
+      requiresAuth: false 
+    }
   }
 ];
 // Create the router

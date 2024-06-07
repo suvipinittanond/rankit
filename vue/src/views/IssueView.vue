@@ -1,5 +1,6 @@
 <template>
   <div class="issues">
+    {{this.$store.state.user}}
     <h1>Issues</h1>
     <ul class="issue-list">
       <li v-for="issue in issues" :key="issue.id">
@@ -63,7 +64,8 @@ export default {
     },
     submitVote(issueId) {
       const selectedOption = this.selectedOption.issueID;
-      IssueService.submitVote(issueId, selectedOption)
+      const userId = this.$store.state.user.id;
+      IssueService.submitVote(issueId, selectedOption, userId)
         .then(() => {
           console.log('Vote submitted successfully');
           this.loadIssues();

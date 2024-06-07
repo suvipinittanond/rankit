@@ -14,11 +14,12 @@ export default {
     
     },
 
-    submitVote(issueId, selectedOption) {
+    submitVote(issueId, selectedOption, userId) {
+      
       let voteDTO = {
         issueId : issueId,
         selectedOption: selectedOption,
-        userId: 1
+        userId: userId
       }
       return axios.post('/vote', voteDTO);
     }

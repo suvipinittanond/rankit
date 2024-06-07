@@ -1,8 +1,8 @@
 <template>
-  <div id='create'>
-    <form v-on:submit.prevent="createIssue">
+  <div id='create' class='container'>
+    <form v-on:submit.prevent="createIssue" class='form-container'>
       <h1>Create An Issue</h1>
-      <div role="alert" v-if="creationErrors">
+      <div role="alert" v-if="creationErrors" class='alert'>
         {{ creationErrorMsg }}
       </div>
       <div class="form-input-group">
@@ -37,7 +37,7 @@
         <label for="option4">Option 4</label>
         <input type="text" id="option4" v-model="issue.option4" />
       </div>
-      <button type="submit">Create Issue</button>
+      <button class='submit-button' type="submit">Create Issue</button>
     </form>
   </div>
 </template>
@@ -105,11 +105,58 @@ export default {
 };
 </script>
 
+
 <style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #e4e4e4;
+}
+
+.form-container {
+  background: #7C7C7C;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px #020301;
+  width: 100%;
+  max-width: 400px;
+}
+
 .form-input-group {
   margin-bottom: 1rem;
 }
+
 label {
-  margin-right: 0.5rem;
+  display: block;
+  margin-bottom: 15px;
+  font-weight: bold;
 }
+
+input[type="text"],
+input[type="description"],
+input[type="datetime-local"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #8FA9B1;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #63747A;
+}
+
+
 </style>

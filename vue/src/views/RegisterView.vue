@@ -97,6 +97,7 @@ h1 {
 
 .register-form {
   background-color: #c9c9c6;
+  box-shadow: 0 2px 10px #020301;
   height: 400px;
   width: 350px;
   border-radius: 40px;

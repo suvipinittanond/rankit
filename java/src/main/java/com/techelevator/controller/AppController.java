@@ -31,6 +31,15 @@ public class AppController {
     @RequestMapping(path = "/getvote/{issueId}", method = RequestMethod.GET)
     public List<Integer> getSelectedOptionsByIssueId(@PathVariable int issueId) {
         List<Integer> selectedOptions = voteDAO.getSelectedOptionsByIssueId(issueId);
+
+        /*
+        * Need a DAO method that returns this:
+        * option     votes
+        * A          2
+        * B          6
+        * ....
+        * */
+
         if (!selectedOptions.isEmpty()) {
             return selectedOptions;
         } else {

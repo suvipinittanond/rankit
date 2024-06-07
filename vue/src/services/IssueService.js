@@ -25,8 +25,7 @@ export default {
     },
 
     getResults(issueId) {
-
-      return axios.get(`/getvote/${issueId}`);
+      return axios.get(`getvote/${issueId}`);
     }
 
 }

@@ -31,6 +31,4 @@ export default {
     getResults(issueId) {
       return axios.get(`getvote/${issueId}`);
     }
-
-
   }

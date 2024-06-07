@@ -1,20 +1,20 @@
 <template>
   <div id="capstone-app">
-    <!-- A: {{ this.$store.state.user }}
-    B: {{ $store.state.user }} -->
     <div id="topnav">
       <a href="/">
         <img src="src/assets/RankItWhiteNoBG.png" alt="Logo" id="logo">
       </a>
-      {{ isAdmin }}
       <div id="right-links">
-        <router-link v-bind:to="{ name: 'createissue' }" v-if ='isAdmin' >Create Issue</router-link>
-        <!-- <router-link v-bind:to="{ name: 'createissue' }"  >Create Issue</router-link> -->
-        <router-link v-bind:to="{ name: 'issues' }">Issues</router-link>
+        <router-link v-if="isAdmin" :to="{ name: 'createissue' }">Create Issue</router-link>
+        <router-link :to="{ name: 'issues' }">Issues</router-link>
       </div>
       <div id="left-links">
-        <router-link v-bind:to="{ name: 'login' }">Sign up or Log In</router-link>&nbsp;|&nbsp;
-        <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+        <template v-if="isAuthenticated">
+          <router-link :to="{ name: 'logout' }">Logout</router-link>
+        </template>
+        <template v-else>
+          <router-link :to="{ name: 'login' }">Sign up or Log In</router-link>
+        </template>
       </div>
     </div>
     <router-view />
@@ -25,15 +25,10 @@
 export default {
   computed: { 
     isAdmin() {
-      // console.log('DEBUG**')
-      // console.log(Object.keys(this.$store.state.user).length)
-
-      if(Object.keys(this.$store.state.user).length === 0){
-        return false;
-      }
-
-      return this.$store.state.user.authorities[0].name === 'ROLE_ADMIN';
-      
+      return this.$store.state.user.authorities?.[0]?.name === 'ROLE_ADMIN';
+    },
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
     }
   }
 };

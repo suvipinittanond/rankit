@@ -7,6 +7,11 @@ export function createStore(currentToken, currentUser) {
       token: currentToken || '',
       user: currentUser || {}
     },
+    getters: {
+      isAuthenticated(state) {
+        return !!state.token;
+      }
+    },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
         state.token = token;
@@ -22,7 +27,7 @@ export function createStore(currentToken, currentUser) {
         localStorage.removeItem('user');
         state.token = '';
         state.user = {};
-        axios.defaults.headers.common = {};
+        delete axios.defaults.headers.common['Authorization'];
       }
     },
   });

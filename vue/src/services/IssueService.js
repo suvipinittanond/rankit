@@ -6,14 +6,7 @@ export default {
   getIssues() {
     return axios.get('/getissue');
   },
-  submitVote(issueId, selectedOption) {
-    let voteDTO = {
-      issueId: issueId,
-      selectedOption: selectedOption,
-      userId: 1
-    };
-    return axios.post('/vote', voteDTO);
-  },
+
   // Get a specific issue by ID
   getIssue(id) {
     return axios.get(`/getissue/${id}`);
@@ -23,27 +16,21 @@ export default {
   },
     
   deleteIssue(issueId, issue) {
-    return axios.delete(`/deleteissue/${issueId}`, issue); }
-};
+    return axios.delete(`/deleteissue/${issueId}`, issue); 
+  },
 
-    getIssues() {
-
-      return axios.get('/getissue');
-    
-    },
-
-    submitVote(issueId, selectedOption, userId) {
-      
+  submitVote(issueId, selectedOption, userId) { 
       let voteDTO = {
-        issueId : issueId,
-        selectedOption: selectedOption,
-        userId: userId
-      }
-      return axios.post('/vote', voteDTO);
-    },
+      issueId : issueId,
+      selectedOption: selectedOption,
+      userId: userId
+    }
+    return axios.post('/vote', voteDTO);
+  },
 
     getResults(issueId) {
       return axios.get(`getvote/${issueId}`);
     }
 
 
+  }

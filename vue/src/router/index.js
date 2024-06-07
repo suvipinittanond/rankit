@@ -7,6 +7,7 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import CreateView from '../views/CreateView.vue';
 import IssueView from '../views/IssueView.vue';
+import ResultView from '../views/ResultsView.vue';
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
  * inside of App.vue depending on the URL.

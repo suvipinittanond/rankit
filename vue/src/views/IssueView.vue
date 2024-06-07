@@ -27,12 +27,16 @@
                   <span class="option-text">{{ issue.option4 }}</span>
                 </label>
               </div>
-              <button type="submit" class="submit-button">Submit Vote</button>
+              <button v-on:click='showResults(issue.id)' type="submit" class="submit-button">Submit Vote</button>
             </form>
           </div>
         </div>
       </li>
     </ul>
+  </div>
+
+  <div v-for="result in results" :key="result.id">
+    {{ result }}
   </div>
 </template>
 
@@ -43,7 +47,9 @@ export default {
   data() {
     return {
       issues: [],
-      selectedOption: {issueID : 0}
+      selectedOption: {issueID : 0},
+      results: [],
+      
     }
   },
   created() {
@@ -80,6 +86,15 @@ export default {
       if (issue) {
         issue.minimized = !issue.minimized;
       }
+    },
+    showResults(issueId) {
+      IssueService.getResults(issueId)
+        .then(response => {
+          this.results = response.data;
+        })
+          .catch(error => {
+          console.error('Error loading issues:', error);
+        });
     }
   }
 };

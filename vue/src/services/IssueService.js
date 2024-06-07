@@ -22,6 +22,11 @@ export default {
         userId: userId
       }
       return axios.post('/vote', voteDTO);
+    },
+
+    getResults(issueId) {
+
+      return axios.get(`/getvote/${issueId}`);
     }
 
 }

@@ -10,19 +10,19 @@
             <p>{{ issue.description }}</p>
             <form @submit.prevent="submitVote(issue.id)" class="vote-form">
               <div class="options">
-                <label class="option">
+                <label class="option" v-if="issue.option1">
                   <input type="radio" v-model="selectedOption.issueID" value="1" class="radio-input">
                   <span class="option-text">{{ issue.option1 }}</span>
                 </label>
-                <label class="option">
+                <label class="option" v-if="issue.option2">
                   <input type="radio" v-model="selectedOption.issueID" value="2" class="radio-input">
                   <span class="option-text">{{ issue.option2 }}</span>
                 </label>
-                <label class="option">
+                <label class="option" v-if="issue.option3">
                   <input type="radio" v-model="selectedOption.issueID" value="3" class="radio-input">
                   <span class="option-text">{{ issue.option3 }}</span>
                 </label>
-                <label class="option">
+                <label class="option" v-if="issue.option4">
                   <input type="radio" v-model="selectedOption.issueID" value="4" class="radio-input">
                   <span class="option-text">{{ issue.option4 }}</span>
                 </label>
@@ -49,7 +49,6 @@ export default {
       issues: [],
       selectedOption: {issueID : 0},
       results: [],
-      
     }
   },
   created() {
@@ -92,7 +91,7 @@ export default {
         .then(response => {
           this.results = response.data;
         })
-          .catch(error => {
+        .catch(error => {
           console.error('Error loading issues:', error);
         });
     }

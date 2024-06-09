@@ -1,6 +1,6 @@
 <template>
-  <div id='create'>
-    <form v-on:submit.prevent="createIssue">
+  <div id='create' class='container'>
+    <form v-on:submit.prevent="createIssue" class='form'>
       <h1>Manage Issues</h1>
       <div role="alert" v-if="creationErrors">
         {{ creationErrorMsg }}
@@ -41,9 +41,11 @@
         <label for="option4">Option 4</label>
         <input type="text" id="option4" v-model="issue.option4" />
       </div>
+      <div class='button-group'>
       <button type="submit">Create</button>
       <button type="button" v-on:click="updateIssue">Update</button>
       <button type="button" v-on:click="deleteIssue">Delete</button>
+      </div>
     </form>
   </div>
 </template>
@@ -160,14 +162,25 @@ export default {
 };
 </script>
 <style scoped>
-.form-input-group {
-  margin-bottom: 1rem;
+.container {
+  text-align: center;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E4E4E4;
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 0 5px 20px;
 }
-label {
-  margin-right: 0.5rem;
+
+.form {
+  background-color: #c9c9c6;
+  box-shadow: 0 2px 10px #020301;
+  height: 450px;
+  width: 500px;
+  border-radius: 25px;
 }
-</style>
-<style scoped>
 .form-input-group {
   margin-bottom: 1rem;
 }

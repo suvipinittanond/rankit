@@ -1,6 +1,6 @@
 <template>
   <div class="issues">
-    {{this.$store.state.user}}
+    <!-- {{this.$store.state.user}} -->
     <h1>Issues</h1>
     <ul class="issue-list">
       <li v-for="issue in issues" :key="issue.id">
@@ -124,6 +124,7 @@ export default {
   margin-bottom: 30px;
   border-radius: 50px;
   text-align: center;
+  box-shadow: 0 5px 25px #63747A;
 }
 
 .vote-form {

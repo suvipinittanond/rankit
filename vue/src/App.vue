@@ -35,6 +35,10 @@ export default {
 </script>
 
 <style scoped>
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 #topnav {
   overflow: hidden;
   background-color: #020301;

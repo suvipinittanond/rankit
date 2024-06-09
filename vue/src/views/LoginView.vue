@@ -106,9 +106,16 @@ button {
   font-size: 15px;
   font-family: Arial, Helvetica, sans-serif
 }
+button:hover {
+  background-color: #FFDB15;
+}
 .input-box {
   border-radius: 15px;
   padding: 12px;
+}
+.alert-registration {
+  margin:30px;
+
 }
 
 </style>

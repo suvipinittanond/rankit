@@ -8,8 +8,8 @@
       <ul class="result-list">
     
         
-            {{ results.voteCount}}
-            {{ results.selectedOption}}
+           Vote Count: {{ results.voteCount}} :
+           Selected Option:  {{ results.selectedOption}}
      
       </ul>
         

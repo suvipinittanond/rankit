@@ -37,6 +37,7 @@ export default {
 <style scoped>
 body{
   font-family: Arial, Helvetica, sans-serif;
+  
 }
 
 #topnav {
@@ -50,6 +51,7 @@ body{
   color: #E4E4E4;
   text-decoration: none;
   padding: 14px 16px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 #topnav a:hover {
   background-color: #020301;

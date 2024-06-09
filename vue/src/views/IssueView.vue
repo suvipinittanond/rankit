@@ -1,7 +1,7 @@
 <template>
   <div class="issues">
     <!-- {{this.$store.state.user}} -->
-    <h1>Issues</h1>
+    <h1>Active Issues</h1>
     <ul class="issue-list">
       <li v-for="issue in issues" :key="issue.id">
         <div class="issue-item">
@@ -104,6 +104,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: Arial, Helvetica, sans-serif
 }
 
 .issue-list {
@@ -123,14 +124,14 @@ export default {
   margin-top: 30px;
   margin-bottom: 30px;
   border-radius: 50px;
-  text-align: center;
+  text-align: left;
   box-shadow: 0 5px 25px #63747A;
 }
 
 .vote-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 }
 
 .options {
@@ -161,7 +162,9 @@ export default {
 }
 
 .submit-button:hover {
-  background-color: #45a049;
+
+  background-color: #8FA9B1;
+
 }
 
 .option-text {

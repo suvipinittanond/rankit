@@ -5,7 +5,7 @@
         <img src="src/assets/RankItWhiteNoBG.png" alt="Logo" id="logo">
       </a>
       <div id="right-links">
-        <router-link v-if="isAdmin" :to="{ name: 'createissue' }">Create Issue</router-link>
+        <router-link v-if="isAdmin" :to="{ name: 'createissue' }">Admin Portal</router-link>
         <router-link :to="{ name: 'issues' }">Issues</router-link>
       </div>
       <div id="left-links">
@@ -56,7 +56,7 @@ body{
 #topnav a:hover {
   background-color: #020301;
   color: #8FA9B1;
-  text-decoration: underline;
+ 
 }
 #logo {
   height: 50px;

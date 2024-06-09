@@ -1,36 +1,36 @@
 <template>
   <div id='create' class='container'>
     <form v-on:submit.prevent="createIssue" class='form'>
-      <h1>Manage Issues</h1>
+      <h1>Issue Management Form</h1>
       <div role="alert" v-if="creationErrors">
         {{ creationErrorMsg }}
       </div>
       <div class="form-input-group">
         <label for="name">Issue Id</label>
-        <input type="text" id="id" v-model="issue.id" />
+        <input type="text" id="id" style='width:190px' v-model="issue.id" placeholder=' leave blank if creating an issue'/>
       </div>
       <div class="form-input-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" v-model="issue.name" required autofocus />
+        <label for="name">Name * </label>
+        <input type="text" id="name"  v-model="issue.name" required autofocus />
       </div>
       <div class="form-input-group">
-        <label for="description">Description</label>
-        <input type="description" id="description" v-model="issue.description" required />
+        <label for="description">Description *</label>
+        <input type="description" id="description" style='height:40px'  v-model="issue.description" required />
       </div>
       <div class="form-input-group">
-        <label for="start_time">Start Time</label>
+        <label for="start_time">Start Time *</label>
         <input type="datetime-local" id="start_time" v-model="issue.start_time" required />
       </div>
       <div class="form-input-group">
-        <label for="end_time">End Time</label>
+        <label for="end_time">End Time *</label>
         <input type="datetime-local" id="end_time" v-model="issue.end_time" required />
       </div>
       <div class="form-input-group">
-        <label for="option1">Option 1</label>
-        <input type="text" id="option1" v-model="issue.option1" required />
+        <label for="option1">Option 1 *</label>
+        <input type="text" id="option1"  v-model="issue.option1" required />
       </div>
       <div class="form-input-group">
-        <label for="option2">Option 2</label>
+        <label for="option2">Option 2 *</label>
         <input type="text" id="option2" v-model="issue.option2" required />
       </div>
       <div class="form-input-group">
@@ -39,7 +39,7 @@
       </div>
       <div class="form-input-group">
         <label for="option4">Option 4</label>
-        <input type="text" id="option4" v-model="issue.option4" />
+        <input type="text" id="option4"  v-model="issue.option4" />
       </div>
       <div class='button-group'>
       <button type="submit">Create</button>
@@ -164,22 +164,23 @@ export default {
 <style scoped>
 .container {
   text-align: center;
-  padding-bottom: 10px;
+  padding-bottom: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #E4E4E4;
   height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
-  box-shadow: 0 5px 20px;
+  
 }
 
 .form {
   background-color: #c9c9c6;
   box-shadow: 0 2px 10px #020301;
-  height: 450px;
+  height: 500px;
   width: 500px;
   border-radius: 25px;
+  
 }
 .form-input-group {
   margin-bottom: 1rem;

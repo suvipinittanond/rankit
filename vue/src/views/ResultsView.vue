@@ -1,15 +1,12 @@
 <template>
     <div class = "results">
-
-        
-      <h1>
-        Results
-      </h1>
+      <h1>Results for Issue #1 </h1>
       <ul class="result-list">
     
-        
-           Vote Count: {{ results.voteCount}} :
-           Selected Option:  {{ results.selectedOption}}
+      
+           
+           Selected Option:  {{ results.selectedOption}} <br>
+           Vote Count: {{ results.voteCount}}
      
       </ul>
         
@@ -42,6 +39,12 @@ import IssueService from '../services/IssueService';
   </script>
   
   <style scoped>
+  .results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif
+}
   
   </style>
   

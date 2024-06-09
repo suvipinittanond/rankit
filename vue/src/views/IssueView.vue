@@ -104,8 +104,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: Arial, Helvetica, sans-serif
+  font-family: Arial, Helvetica, sans-serif;
+  
 }
+
 
 .issue-list {
   display: flex;
@@ -126,6 +128,16 @@ export default {
   border-radius: 50px;
   text-align: left;
   box-shadow: 0 5px 25px #63747A;
+
+}
+h3 {
+  color: black;
+}
+h3:hover{
+  color: black;
+  text-shadow: 0 0 3px lightblue, 0 0 5px lightblue;
+ 
+  
 }
 
 .vote-form {
@@ -139,6 +151,7 @@ export default {
   flex-direction: column;
   margin-bottom: 20px;
 }
+
 
 .option {
   margin-bottom: 10px;

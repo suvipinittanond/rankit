@@ -4,6 +4,7 @@ import com.techelevator.model.Vote;
 import com.techelevator.model.VoteDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface VoteDao {
 
@@ -16,7 +17,8 @@ public interface VoteDao {
 
    // Vote getVotebyIssueAndSelectedOption(int issueId, int selectedOption);
 
-    List<Integer> getSelectedOptionsByIssueId(int issueId);
+
+    Map<Integer, Integer> getSelectedOptionsByIssueId(int issueId);
 
     boolean hasVoteByUserAndIssue(int userId, int issueId);
 }

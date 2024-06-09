@@ -49,6 +49,15 @@ public class Issue {
     private String option3;
     private String option4;
 
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    private String groupId;
 
     public Issue(int id, String name, String description, String startTime, String endTime,
                  String option1, String option2, String option3, String option4) {

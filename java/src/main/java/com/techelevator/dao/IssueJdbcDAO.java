@@ -3,7 +3,6 @@ package com.techelevator.dao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Issue;
 import com.techelevator.model.IssueDTO;
-import com.techelevator.model.Vote;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -19,8 +18,16 @@ public class IssueJdbcDAO implements IssueDAO {
         this.template = template;
     }
 
-
-
+    @Override
+    public List<Issue> getIssuesByGroupId(String groupId) {
+        String sql = "SELECT * FROM issue WHERE group_id = ?";
+        List<Issue> issues = new ArrayList<>();
+        SqlRowSet rowSet = template.queryForRowSet(sql, groupId);
+        while (rowSet.next()) {
+            issues.add(mapRowToIssue(rowSet));
+        }
+        return issues;
+    }
 
     @Override
     public Issue getIssueById(int issueId) {
@@ -130,6 +137,7 @@ public class IssueJdbcDAO implements IssueDAO {
         issue.setId(rowSet.getInt("id"));
         issue.setName(rowSet.getString("name"));
         issue.setDescription(rowSet.getString("description"));
+        issue.setGroupId(rowSet.getString("group_id"));
         issue.setStartTime(rowSet.getString("start_time"));
         issue.setEndTime(rowSet.getString("end_time"));
         issue.setOption1(rowSet.getString("option1"));

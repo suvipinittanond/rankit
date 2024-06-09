@@ -3,14 +3,14 @@
 
         
       <h1>
-        Results 
+        Results
       </h1>
       <ul class="result-list">
-        <li v-for="result in results" :key="result.vote_id">
+    
         
-            {{ result.id}}
-            {{ result.selectedOption}}
-        </li>
+            {{ results.voteCount}}
+            {{ results.selectedOption}}
+     
       </ul>
         
     </div>
@@ -24,12 +24,13 @@ import IssueService from '../services/IssueService';
     created() {
             IssueService.getResults(this.issueId)
             .then(response => {
-        this.results = response.data
+            this.results = response.data
+          
          })
     },
     data() {
       return {
-        results: [], 
+        results: {}, 
         issueId : 1
       };
     },

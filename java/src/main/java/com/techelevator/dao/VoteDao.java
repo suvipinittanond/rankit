@@ -18,7 +18,7 @@ public interface VoteDao {
    // Vote getVotebyIssueAndSelectedOption(int issueId, int selectedOption);
 
 
-    Map<Integer, Integer> getSelectedOptionsByIssueId(int issueId);
+    Map<String, Integer> getSelectedOptionsByIssueId(int issueId);
 
     boolean hasVoteByUserAndIssue(int userId, int issueId);
 }

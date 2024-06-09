@@ -30,8 +30,8 @@ public class AppController {
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(path = "/getvote/{issueId}", method = RequestMethod.GET)
-    public Map<Integer, Integer> getSelectedOptionsByIssueId(@PathVariable int issueId) {
-        Map<Integer, Integer> voteCounts = voteDAO.getSelectedOptionsByIssueId(issueId);
+    public Map<String, Integer> getSelectedOptionsByIssueId(@PathVariable int issueId) {
+        Map<String, Integer> voteCounts = voteDAO.getSelectedOptionsByIssueId(issueId);
 
         if (!voteCounts.isEmpty()) {
             return voteCounts;

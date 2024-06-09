@@ -48,16 +48,17 @@ public class JdbcVoteDao implements VoteDao{
     }
 
     @Override
-    public Map<Integer, Integer> getSelectedOptionsByIssueId(int issueId) {
+    public Map<String, Integer> getSelectedOptionsByIssueId(int issueId) {
         String sql = "SELECT selected_option, COUNT(*) AS vote_count FROM votes WHERE id = ? GROUP BY selected_option";
-        Map<Integer, Integer> voteCounts = new HashMap<>();
+        Map<String, Integer> voteCounts = new HashMap<>();
 
         try {
             SqlRowSet rs = template.queryForRowSet(sql, issueId);
             while (rs.next()) {
                 int selectedOption = rs.getInt("selected_option");
                 int count = rs.getInt("vote_count");
-                voteCounts.put(selectedOption, count);
+                voteCounts.put("selectedOption", selectedOption);
+                voteCounts.put("voteCount", count);
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server", e);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -29,24 +30,26 @@ public class AppController {
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(path = "/getvote/{issueId}", method = RequestMethod.GET)
-    public List<Integer> getSelectedOptionsByIssueId(@PathVariable int issueId) {
-        List<Integer> selectedOptions = voteDAO.getSelectedOptionsByIssueId(issueId);
+    public Map<Integer, Integer> getSelectedOptionsByIssueId(@PathVariable int issueId) {
+        Map<Integer, Integer> voteCounts = voteDAO.getSelectedOptionsByIssueId(issueId);
 
-        /*
-        * Need a DAO method that returns this:
-        * option     votes
-        * A          2
-        * B          6
-        * ....
-        * */
-
-        if (!selectedOptions.isEmpty()) {
-            return selectedOptions;
+        if (!voteCounts.isEmpty()) {
+            return voteCounts;
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No votes found for the specified issue");
         }
     }
 
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @RequestMapping(path = "/group/{groupId}", method = RequestMethod.GET)
+    public List<Issue> getIssuesByGroupId(@PathVariable String groupId) {
+        List<Issue> issues = issueDAO.getIssuesByGroupId(groupId);
+        if (!issues.isEmpty()) {
+            return issues;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(path = "/vote", method = RequestMethod.POST)

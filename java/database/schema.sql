@@ -18,6 +18,7 @@ CREATE TABLE issue (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(200),
+    group_id VARCHAR(50),
     start_time TEXT,
     end_time TEXT,
     option1 TEXT,

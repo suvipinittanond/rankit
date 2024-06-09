@@ -8,8 +8,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import com.techelevator.model.VoteDTO;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JdbcVoteDao implements VoteDao{
@@ -48,21 +48,22 @@ public class JdbcVoteDao implements VoteDao{
     }
 
     @Override
-    public List<Integer> getSelectedOptionsByIssueId(int issueId) {
-        String sql = "SELECT selected_option FROM votes WHERE id = ?";
-        List<Integer> selectedOptions = new ArrayList<>();
+    public Map<Integer, Integer> getSelectedOptionsByIssueId(int issueId) {
+        String sql = "SELECT selected_option, COUNT(*) AS vote_count FROM votes WHERE id = ? GROUP BY selected_option";
+        Map<Integer, Integer> voteCounts = new HashMap<>();
 
         try {
             SqlRowSet rs = template.queryForRowSet(sql, issueId);
             while (rs.next()) {
                 int selectedOption = rs.getInt("selected_option");
-                selectedOptions.add(selectedOption);
+                int count = rs.getInt("vote_count");
+                voteCounts.put(selectedOption, count);
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server", e);
         }
 
-        return selectedOptions;
+        return voteCounts;
     }
 
 

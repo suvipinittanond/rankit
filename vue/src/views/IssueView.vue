@@ -1,6 +1,5 @@
 <template>
   <div class="issues">
-    <!-- {{this.$store.state.user}} -->
     <h1>Active Issues</h1>
     <ul class="issue-list">
       <li v-for="issue in issues" :key="issue.id">
@@ -27,16 +26,18 @@
                   <span class="option-text">{{ issue.option4 }}</span>
                 </label>
               </div>
-              <button v-on:click='showResults(issue.id)' type="submit" class="submit-button">Submit Vote</button>
+              <button type="submit" class="submit-button">Submit Vote</button>
             </form>
+            <div v-if="getResult(issue.id)">
+              <h4>Results:</h4>
+              <p v-for="(result, index) in getResult(issue.id)" :key="index">
+                Option {{ index + 1 }}: {{ result }} votes
+              </p>
+            </div>
           </div>
         </div>
       </li>
     </ul>
-  </div>
-
-  <div v-for="result in results" :key="result.id">
-    {{ result }}
   </div>
 </template>
 
@@ -47,9 +48,9 @@ export default {
   data() {
     return {
       issues: [],
-      selectedOption: {issueID : 0},
-      results: [],
-    }
+      selectedOption: { issueID: 0 },
+      results: []
+    };
   },
   created() {
     this.loadIssues();
@@ -73,7 +74,7 @@ export default {
       IssueService.submitVote(issueId, selectedOption, userId)
         .then(() => {
           console.log('Vote submitted successfully');
-          this.loadIssues();
+          this.showResults(issueId);
         })
         .catch(error => {
           console.error('Error submitting vote:', error);
@@ -89,11 +90,20 @@ export default {
     showResults(issueId) {
       IssueService.getResults(issueId)
         .then(response => {
-          this.results = response.data;
+          const resultIndex = this.results.findIndex(result => result.issueId === issueId);
+          if (resultIndex !== -1) {
+            this.results[resultIndex] = { issueId, data: response.data };
+          } else {
+            this.results.push({ issueId, data: response.data });
+          }
         })
         .catch(error => {
-          console.error('Error loading issues:', error);
+          console.error('Error loading results:', error);
         });
+    },
+    getResult(issueId) {
+      const result = this.results.find(result => result.issueId === issueId);
+      return result ? result.data : null;
     }
   }
 };

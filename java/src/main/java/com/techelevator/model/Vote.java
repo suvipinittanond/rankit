@@ -42,4 +42,15 @@ public class Vote {
     private int selectedOption;
 
     public Vote() {}
+
+    public void setVoteId(int voteId) {
+    }
+
+    
+
+    public void setIssueName(String issueName) {
+    }
+
+    public void setSelectedOptionText(String selectedOptionText) {
+    }
 }

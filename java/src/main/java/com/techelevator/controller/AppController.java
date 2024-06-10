@@ -29,6 +29,17 @@ public class AppController {
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
+    @RequestMapping(path = "/votes/user/{userId}", method = RequestMethod.GET)
+    public List<Vote> getVotesByUserId(@PathVariable int userId) {
+        List<Vote> votes = voteDAO.getVotesByUserId(userId);
+        if (!votes.isEmpty()) {
+            return votes;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No votes found for the specified user");
+        }
+    }
+
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(path = "/getvote/{issueId}", method = RequestMethod.GET)
     public Map<String, Integer> getSelectedOptionsByIssueId(@PathVariable int issueId) {
         Map<String, Integer> voteCounts = voteDAO.getSelectedOptionsByIssueId(issueId);

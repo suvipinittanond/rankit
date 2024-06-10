@@ -8,15 +8,11 @@ import java.util.Map;
 
 public interface VoteDao {
 
+    List<Vote> getVotesByUserId(int userId);
 
     Vote getVoteById(int voteId);
 
     Vote createVote(VoteDTO voteDTO);
-
-    //Vote getVoteByUserAndIssue(int userId, int issueId);
-
-   // Vote getVotebyIssueAndSelectedOption(int issueId, int selectedOption);
-
 
     Map<String, Integer> getSelectedOptionsByIssueId(int issueId);
 

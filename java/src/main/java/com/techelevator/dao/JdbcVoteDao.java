@@ -8,7 +8,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import com.techelevator.model.VoteDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -20,6 +22,28 @@ public class JdbcVoteDao implements VoteDao{
     public JdbcVoteDao(JdbcTemplate template) {
         this.template = template;
     }
+
+    @Override
+    public List<Vote> getVotesByUserId(int userId) {
+        String sql = "SELECT v.vote_id, v.user_id, v.id as issue_id, v.selected_option, i.name as issue_name, " +
+                "CASE v.selected_option " +
+                "    WHEN 1 THEN i.option1 " +
+                "    WHEN 2 THEN i.option2 " +
+                "    WHEN 3 THEN i.option3 " +
+                "    WHEN 4 THEN i.option4 " +
+                "END as selected_option_text " +
+                "FROM votes v " +
+                "JOIN issue i ON v.id = i.id " +
+                "WHERE v.user_id = ?";
+        List<Vote> votes = new ArrayList<>();
+        SqlRowSet rs = template.queryForRowSet(sql, userId);
+        while (rs.next()) {
+            Vote vote = mapRowToVote(rs);
+            votes.add(vote);
+        }
+        return votes;
+    }
+
 
     @Override
     public Vote getVoteById(int voteId) {
@@ -87,12 +111,13 @@ public class JdbcVoteDao implements VoteDao{
 
     private Vote mapRowToVote(SqlRowSet rs) {
         Vote vote = new Vote();
-        vote.setVoteID(rs.getInt("vote_id"));
-        vote.setSelectedOption(rs.getInt("selected_option"));
+        vote.setVoteId(rs.getInt("vote_id"));
         vote.setUserId(rs.getInt("user_id"));
-        vote.setIssueId(rs.getInt("id"));
+        vote.setIssueId(rs.getInt("issue_id"));
+        vote.setSelectedOption(rs.getInt("selected_option"));
+        vote.setIssueName(rs.getString("issue_name"));
+        vote.setSelectedOptionText(rs.getString("selected_option_text"));
         return vote;
     }
-
 
 }

@@ -35,6 +35,13 @@
                 {{ formatOption(issue, option) }}: {{ votes }} votes
               </p>
             </div>
+            <div v-if="getResult(issue.id)">
+  <h4>Results:</h4>
+  <div v-for="(votes, option) in getResult(issue.id)" :key="option" class="bar-graph">
+    <div class="bar" :style="{ width: (votes * 10) + 'px' }"></div>
+    <span class="option-text">{{ formatOption(issue, option) }}: {{ votes }} votes</span>
+  </div>
+</div>
           </div>
         </div>
       </li>
@@ -127,14 +134,12 @@ export default {
 </script>
 
 <style scoped>
-.issues {
+.issue-view {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
-  
 }
-
 
 .issue-list {
   display: flex;
@@ -155,16 +160,15 @@ export default {
   border-radius: 50px;
   text-align: left;
   box-shadow: 0 5px 25px #63747A;
-
 }
+
 h3 {
   color: black;
 }
+
 h3:hover{
   color: black;
   text-shadow: 0 0 3px lightblue, 0 0 5px lightblue;
- 
-  
 }
 
 .vote-form {
@@ -178,7 +182,6 @@ h3:hover{
   flex-direction: column;
   margin-bottom: 20px;
 }
-
 
 .option {
   margin-bottom: 10px;
@@ -202,9 +205,7 @@ h3:hover{
 }
 
 .submit-button:hover {
-
   background-color: #8FA9B1;
-
 }
 
 .option-text {
@@ -214,6 +215,7 @@ h3:hover{
 .issue-item h3 {
   cursor: pointer;
 }
+
 .issue-number {
   display: flex;
   justify-content: center;
@@ -221,4 +223,23 @@ h3:hover{
   margin-bottom: 1rem;
   padding: 10px;
 }
+
+.bar-graph {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.bar {
+  height: 20px;
+  background-color: #007BFF; /* Adjust color as needed */
+  margin-right: 5px;
+}
+
+.option-text {
+  margin-left: 10px;
+  font-size: 14px;
+}
 </style>
+
+

@@ -44,7 +44,8 @@
       <div class='button-group'>
       <button type="submit">Create</button>
       <button type="button" v-on:click="updateIssue">Update</button>
-      <button type="button" v-on:click="deleteIssue">Delete</button>
+      <button type="button" v-on:click="confirmDelete">Delete</button>
+      <button type="button" v-on:click="resetForm">Reset From</button>
       </div>
     </form>
   </div>
@@ -143,6 +144,11 @@ export default {
             this.creationErrorMsg = 'Bad Request: Validation Errors';
           }
         });
+    },
+    confirmDelete() {
+      if (confirm('Are you sure you want to delete this issue?')) {
+        this.deleteIssue();
+      }
     },
     resetForm() {
       this.issue = {

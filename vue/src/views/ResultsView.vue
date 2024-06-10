@@ -1,12 +1,11 @@
 <template>
     <div class = "results">
-      <h1>Results for Issue ID #1 </h1>
+      <h1>Results</h1>
       <ul class="result-list">
-    
-      
-           
-           Selected Option:  {{ results.selectedOption}} <br>
-           Vote Count: {{ results.voteCount}}
+  
+          <h4>Issue Id #{{ issueId }} </h4>
+          <h4>Vote Count: {{ results.voteCount }} </h4>
+          <h4>Selected Option: {{ results.selectedOption }} </h4>
      
       </ul>
         
@@ -29,6 +28,7 @@ import IssueService from '../services/IssueService';
       return {
         results: {}, 
         issueId : 1
+        
       };
     },
 

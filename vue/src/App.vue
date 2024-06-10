@@ -11,10 +11,13 @@
       </div>
       <div id="left-links">
         <template v-if="isAuthenticated">
+          
           <router-link :to="{ name: 'logout' }">Logout</router-link>
+
         </template>
         <template v-else>
           <router-link :to="{ name: 'login' }">Sign up or Log In</router-link>
+         
         </template>
       </div>
     </div>

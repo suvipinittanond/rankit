@@ -1,8 +1,10 @@
 <template>
   <div id="capstone-app">
+   
     <div id="topnav">
       <a href="/">
         <img src="src/assets/RankItWhiteNoBG.png" alt="Logo" id="logo">
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
       </a>
       <div id="right-links">
         <router-link v-if="isAdmin" :to="{ name: 'createissue' }">Admin Portal</router-link>

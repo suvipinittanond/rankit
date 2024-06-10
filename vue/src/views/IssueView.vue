@@ -5,7 +5,7 @@
     <ul class="issue-list">
       <li v-for="issue in issues" :key="issue.id">
         <div class="issue-item">
-          <h3 @click="toggleIssue(issue.id)">{{ issue.name }}</h3>
+          <h2 @click="toggleIssue(issue.id)">{{ issue.name }}</h2>
           <div v-if="!issue.minimized">
             <p>{{ issue.description }}</p>
             <form @submit.prevent="submitVote(issue.id)" class="vote-form">
@@ -28,7 +28,7 @@
                 </label>
               </div>
               
-              <strong>VOTING ENDS {{ formatEndTime(issue.endTime) }} </strong>
+              <div class="timelimit" ><strong>VOTING ENDS {{ formatEndTime(issue.endTime) }} </strong></div>
               <button type="submit" class="submit-button">Submit Vote</button>
               <div class='issue-number'>ID#: {{ issue.id }}</div>
             </form>
@@ -167,14 +167,14 @@ export default {
   position: relative;
 }
 
-h3 {
+h2 {
   color: black;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-h3:hover{
+h2:hover{
   color: black;
-  text-shadow: 0 0 3px lightblue, 0 0 5px lightblue;
+  text-shadow: 0 0 15px lightblue, 0 0 15px lightblue;
 }
 
 .vote-form {
@@ -249,6 +249,13 @@ h3:hover{
 
 h1 {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.timelimit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
 }
 </style>
 

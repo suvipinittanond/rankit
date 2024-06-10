@@ -29,23 +29,31 @@ public class JdbcVoteDao implements VoteDao{
 
     @Override
     public List<Vote> getVotesByUserId(int userId) {
-        String sql = "SELECT v.vote_id, v.user_id, v.id as issue_id, v.selected_option, i.name as issue_name, " +
-                "CASE v.selected_option " +
-                "    WHEN 1 THEN i.option1 " +
-                "    WHEN 2 THEN i.option2 " +
-                "    WHEN 3 THEN i.option3 " +
-                "    WHEN 4 THEN i.option4 " +
-                "END as selected_option_text " +
+        String sql = "SELECT v.user_id AS userId, " +
+                "       v.id AS voteId, " +
+                "       v.selected_option AS selectedOption, " +
+                "       i.id AS issueId, " +
+                "       i.name AS issueName " +
                 "FROM votes v " +
                 "JOIN issue i ON v.id = i.id " +
                 "WHERE v.user_id = ?";
         List<Vote> votes = new ArrayList<>();
         SqlRowSet rs = template.queryForRowSet(sql, userId);
         while (rs.next()) {
-            Vote vote = mapRowToVote(rs);
+            Vote vote = mapRowToHistory(rs);
             votes.add(vote);
         }
         return votes;
+    }
+
+    private Vote mapRowToHistory(SqlRowSet rs) {
+        Vote vote = new Vote();
+        vote.setVoteID(rs.getInt("voteId"));
+        vote.setUserId(rs.getInt("userId"));
+        vote.setIssueId(rs.getInt("issueId"));
+        vote.setSelectedOption(rs.getInt("selectedOption"));
+        vote.setIssueName(rs.getString("issueName"));
+        return vote;
     }
 
 
@@ -132,7 +140,7 @@ public class JdbcVoteDao implements VoteDao{
 
     private Vote mapRowToVote(SqlRowSet rs) {
         Vote vote = new Vote();
-        vote.setVoteId(rs.getInt("vote_id"));
+        vote.setVoteID(rs.getInt("vote_id"));
         vote.setUserId(rs.getInt("user_id"));
         vote.setIssueId(rs.getInt("issue_id"));
         vote.setSelectedOption(rs.getInt("selected_option"));

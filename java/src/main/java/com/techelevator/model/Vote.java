@@ -2,6 +2,14 @@ package com.techelevator.model;
 
 public class Vote {
 
+    private int userId;
+    private int issueId;
+
+    private int voteID;
+
+    private String issueName;
+
+
     public int getUserId() {
         return userId;
     }
@@ -18,13 +26,18 @@ public class Vote {
         this.issueId = issueId;
     }
 
-    private int userId;
-    private int issueId;
 
-    private int voteID;
 
     public int getVoteID() {
         return voteID;
+    }
+
+    public String getIssueName() {
+        return issueName;
+    }
+
+    public void setIssueName(String issueName) {
+        this.issueName = issueName;
     }
 
     public void setVoteID(int voteID) {
@@ -43,13 +56,6 @@ public class Vote {
 
     public Vote() {}
 
-    public void setVoteId(int voteId) {
-    }
-
-    
-
-    public void setIssueName(String issueName) {
-    }
 
     public void setSelectedOptionText(String selectedOptionText) {
     }

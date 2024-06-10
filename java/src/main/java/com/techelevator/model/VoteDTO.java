@@ -20,6 +20,15 @@ public class VoteDTO {
         this.issueId = issueId;
     }
 
+    public String getIssueName() {
+        return issueName;
+    }
+
+    public void setIssueName(String issueName) {
+        this.issueName = issueName;
+    }
+
+    private String issueName;
     private int issueId;
 
     public int getVoteID() {

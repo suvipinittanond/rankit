@@ -1,6 +1,7 @@
 <template>
   <div class="issues">
     <h1>Active Issues</h1>
+   
     <ul class="issue-list">
       <li v-for="issue in issues" :key="issue.id">
         <div class="issue-item">
@@ -26,6 +27,8 @@
                   <span class="option-text">{{ issue.option4 }}</span>
                 </label>
               </div>
+              
+              <strong>VOTING ENDS {{ formatEndTime(issue.endTime) }} </strong>
               <button type="submit" class="submit-button">Submit Vote</button>
               <div class='issue-number'>ID#: {{ issue.id }}</div>
             </form>
@@ -60,6 +63,7 @@ export default {
     this.loadIssues();
   },
   methods: {
+    
     loadIssues() {
       IssueService.getIssues()
         .then(response => {
@@ -123,7 +127,11 @@ export default {
         default:
           return 'Unknown Option';
       }
-    }
+    },
+    formatEndTime(endTime) { 
+      const date = new Date(Date.parse(endTime)); 
+      return date.toLocaleString();
+  }
   }
 };
 </script>

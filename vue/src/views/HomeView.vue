@@ -30,9 +30,9 @@
       return {
         slideIndex: 0,
         slides: [
-          { imgSrc: 'src/assets/LogoBlack.png'},
           { imgSrc: 'src/assets/LogoblackNoBG.png'},
-          { imgSrc: 'src/assets/RankItBlack.png' }
+          { imgSrc: 'src/assets/LogoblackNoBG.png'},
+          { imgSrc: 'src/assets/LogoblackNoBG.png' }
         ]
       };
     },
@@ -46,7 +46,6 @@
       showSlides() {
         let i;
         const slides = document.getElementsByClassName("mySlides");
-       
         for (i = 0; i < slides.length; i++) {
           slides[i].style.display = "none";
         }
@@ -54,9 +53,7 @@
         if (this.slideIndex > slides.length) {
           this.slideIndex = 1;
         }
-    
         slides[this.slideIndex - 1].style.display = "block";
-       
         setTimeout(this.showSlides, 2000);
       }
     }

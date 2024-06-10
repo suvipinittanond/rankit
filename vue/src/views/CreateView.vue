@@ -6,7 +6,7 @@
         {{ creationErrorMsg }}
       </div>
       <div class="form-input-group">
-        <label for="name">Issue Id</label>
+        <label for="name">Issue ID</label>
         <input type="text" id="id" style='width:190px' v-model="issue.id" placeholder=' leave blank if creating an issue'/>
       </div>
       <div class="form-input-group">
@@ -45,7 +45,7 @@
       <button type="submit">Create</button>
       <button type="button" v-on:click="updateIssue">Update</button>
       <button type="button" v-on:click="confirmDelete">Delete</button>
-      <button type="button" v-on:click="resetForm">Reset From</button>
+      <button type="button" v-on:click="resetForm">Reset Form</button>
       </div>
     </form>
   </div>
@@ -167,8 +167,7 @@ export default {
   }
 };
 </script>
-<style scoped>
-.container {
+<style scoped>.container {
   text-align: center;
   padding-bottom: 100px;
   display: flex;
@@ -177,21 +176,39 @@ export default {
   background-color: #E4E4E4;
   height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
-  
 }
 
 .form {
   background-color: #c9c9c6;
   box-shadow: 0 2px 10px #020301;
-  height: 500px;
-  width: 500px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
   border-radius: 25px;
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 .form-input-group {
-  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
 }
+
 label {
-  margin-right: 0.5rem;
+  flex: 0 0 120px;
+  text-align: left;
+  margin-right: 5px;
+}
+
+input {
+  flex: 1;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 </style>

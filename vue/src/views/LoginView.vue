@@ -14,7 +14,10 @@
       </div>
       <div class="form-input-group">
 
-        <input type="password" id="password" v-model="user.password" placeholder='Password' class='input-box' required />
+        <input :type='passwordFieldType' id="password" v-model="user.password" placeholder='Password' class='input-box' required />
+      </div>
+      <div class="form-input-group">
+        <input type="checkbox" id="showPassword" v-model="showPassword" /> Show Password
       </div>
       <button type="submit">Sign in</button>
       <p>
@@ -34,8 +37,14 @@ export default {
         username: "",
         password: ""
       },
-      invalidCredentials: false
+      invalidCredentials: false,
+      showPassword: false
     };
+  },
+  computed: {
+    passwordFieldType() {
+      return this.showPassword ? 'text' : 'password';
+    }
   },
   methods: {
     login() {

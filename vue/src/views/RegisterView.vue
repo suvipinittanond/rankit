@@ -10,10 +10,13 @@
         <input type="text" id="username" v-model="user.username"  placeholder='Username' class='input-box' required autofocus />
       </div>
       <div class="form-input-group">
-        <input type="password" id="password" v-model="user.password" placeholder='Password' class='input-box' required />
+        <input :type='passwordFieldType' id="password" v-model="user.password" placeholder='Password' class='input-box' required />
       </div>
       <div class="form-input-group">
-        <input type="password" id="confirmPassword" v-model="user.confirmPassword" placeholder='Confirm Password' class='input-box' required />
+        <input :type='passwordFieldType' id="confirmPassword" v-model="user.confirmPassword" placeholder='Confirm Password' class='input-box' required />
+      </div>
+      <div class="form-input-group">
+        <input type="checkbox" id="showPassword" v-model="showPassword" /> Show Password
       </div>
       <button type="submit">Create Account</button>
       <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
@@ -34,8 +37,14 @@ export default {
         role: 'user',
       },
       registrationErrors: false,
+      showPassword: false,
       registrationErrorMsg: 'There were problems registering this user.',
     };
+  },
+  computed: {
+    passwordFieldType() {
+      return this.showPassword ? 'text' : 'password';
+    }
   },
   methods: {
     register() {

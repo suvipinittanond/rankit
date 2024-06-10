@@ -4,14 +4,14 @@ import com.techelevator.exception.DaoException;
 import com.techelevator.model.IssueTime;
 import com.techelevator.model.IssueTimeMapper;
 import com.techelevator.model.Vote;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import com.techelevator.model.VoteDTO;
 import org.springframework.stereotype.Component;
-
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,6 +75,7 @@ public class JdbcVoteDao implements VoteDao{
     @Override
     public Vote createVote(VoteDTO voteDTO) {
         int issueId = voteDTO.getIssueId();
+        int userId = voteDTO.getUserId();
 
         // Fetch start and end times for the current issue from the database
         String sql = "SELECT start_time, end_time FROM issue WHERE id = ?";
@@ -90,15 +91,49 @@ public class JdbcVoteDao implements VoteDao{
             throw new IllegalStateException("Voting is not allowed for this issue at this time.");
         }
 
-        // Proceed with inserting the vote into the database
-        String voteSql = "INSERT INTO votes (user_id, id, selected_option) VALUES (?, ?, ?) RETURNING vote_id ";
+        // Check if the user has already voted on this issue
+        String checkVoteSql = "SELECT vote_id FROM votes WHERE user_id = ? AND id = ?";
+        Integer existingVoteId = null;
         try {
-            int newVoteId = template.queryForObject(voteSql, int.class, voteDTO.getUserId(), issueId, voteDTO.getSelectedOption());
-            return getVoteById(newVoteId);
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server", e);
+            existingVoteId = template.queryForObject(checkVoteSql, new Object[]{userId, issueId}, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
+            // User has not voted yet
+            System.out.println("User has not voted yet for issueId: " + issueId);
+        }
+
+        // If the user has already voted, update the vote. Otherwise, insert a new vote.
+        String voteSql;
+        if (existingVoteId != null) {
+            voteSql = "UPDATE votes SET selected_option = ? WHERE vote_id = ?";
+            try {
+                System.out.println("Updating vote for voteId: " + existingVoteId);
+                template.update(voteSql, voteDTO.getSelectedOption(), existingVoteId);
+                return getVoteById(existingVoteId);
+            } catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server", e);
+            }
+        } else {
+            voteSql = "INSERT INTO votes (user_id, id, selected_option) VALUES (?, ?, ?) RETURNING vote_id";
+            try {
+                System.out.println("Inserting new vote for userId: " + userId + ", issueId: " + issueId);
+                int newVoteId = template.queryForObject(voteSql, int.class, userId, issueId, voteDTO.getSelectedOption());
+                return getVoteById(newVoteId);
+            } catch (DuplicateKeyException e) {
+                // Handle unique constraint violation for duplicate votes
+                System.out.println("User has already voted, updating existing vote for userId: " + userId + ", issueId: " + issueId);
+                voteSql = "UPDATE votes SET selected_option = ? WHERE user_id = ? AND id = ?";
+                try {
+                    template.update(voteSql, voteDTO.getSelectedOption(), userId, issueId);
+                    String getVoteIdSql = "SELECT vote_id FROM votes WHERE user_id = ? AND id = ?";
+                    existingVoteId = template.queryForObject(getVoteIdSql, new Object[]{userId, issueId}, Integer.class);
+                    return getVoteById(existingVoteId);
+                } catch (CannotGetJdbcConnectionException ex) {
+                    throw new DaoException("Unable to connect to server", ex);
+                }
+            }
         }
     }
+
 
     @Override
     public Map<String, Integer> getSelectedOptionsByIssueId(int issueId) {
@@ -133,9 +168,7 @@ public class JdbcVoteDao implements VoteDao{
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server", e);
         }
-        // you want to give the controller the green light to process the vote
-
-      }
+       }
 
 
     private Vote mapRowToVote(SqlRowSet rs) {

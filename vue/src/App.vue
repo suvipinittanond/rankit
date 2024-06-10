@@ -7,6 +7,7 @@
       <div id="right-links">
         <router-link v-if="isAdmin" :to="{ name: 'createissue' }">Admin Portal</router-link>
         <router-link :to="{ name: 'issues' }">Issues</router-link>
+        <router-link :to="{ name: 'getvote'}">Results</router-link>
       </div>
       <div id="left-links">
         <template v-if="isAuthenticated">

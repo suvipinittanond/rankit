@@ -1,6 +1,6 @@
 <template>
     <div class = "results">
-      <h1>Results for Issue #1 </h1>
+      <h1>Results for Issue ID #1 </h1>
       <ul class="result-list">
     
       

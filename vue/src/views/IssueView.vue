@@ -27,6 +27,7 @@
                 </label>
               </div>
               <button type="submit" class="submit-button">Submit Vote</button>
+              <div class='issue-number'>ID#: {{ issue.id }}</div>
             </form>
             <div v-if="getResult(issue.id)">
               <h4>Results:</h4>
@@ -212,5 +213,12 @@ h3:hover{
 
 .issue-item h3 {
   cursor: pointer;
+}
+.issue-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 10px;
 }
 </style>

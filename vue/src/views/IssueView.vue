@@ -35,6 +35,7 @@
              <div class="bar" :style="{ width: (votes * 10) + 'px' }"></div>
               <span class="option-text">{{ formatOption(issue, option) }}: {{ votes }} votes</span>
               </div>
+              
             </div>
           </div>
         </div>
@@ -142,6 +143,7 @@ export default {
   list-style: none;
   padding: 0;
   width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .issue-item {
@@ -154,10 +156,12 @@ export default {
   border-radius: 50px;
   text-align: left;
   box-shadow: 0 5px 25px #63747A;
+  position: relative;
 }
 
 h3 {
   color: black;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 h3:hover{
@@ -211,11 +215,11 @@ h3:hover{
 }
 
 .issue-number {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding: 10px;
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  padding: 18px;
+  border-radius: 5px;
 }
 
 .bar-graph {
@@ -233,6 +237,10 @@ h3:hover{
 .option-text {
   margin-left: 10px;
   font-size: 14px;
+}
+
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
 }
 </style>
 

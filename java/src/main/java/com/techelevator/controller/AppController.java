@@ -65,10 +65,6 @@ public class AppController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(path = "/vote", method = RequestMethod.POST)
     public Vote createVote(@RequestBody VoteDTO voteDTO) {
-                   //check if they already voted?
-           if (voteDAO.hasVoteByUserAndIssue(voteDTO.getUserId(), voteDTO.getIssueId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User has already voted");
-            }
             Vote createdVoted = voteDAO.createVote(voteDTO);
             return createdVoted;
     }

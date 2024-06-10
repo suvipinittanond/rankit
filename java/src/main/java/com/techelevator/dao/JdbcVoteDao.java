@@ -1,6 +1,8 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.IssueTime;
+import com.techelevator.model.IssueTimeMapper;
 import com.techelevator.model.Vote;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,6 +10,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import com.techelevator.model.VoteDTO;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,9 +66,26 @@ public class JdbcVoteDao implements VoteDao{
 
     @Override
     public Vote createVote(VoteDTO voteDTO) {
+        int issueId = voteDTO.getIssueId();
+
+        // Fetch start and end times for the current issue from the database
+        String sql = "SELECT start_time, end_time FROM issue WHERE id = ?";
+        IssueTime issueTime = template.queryForObject(sql, new Object[]{issueId}, new IssueTimeMapper());
+
+        LocalDateTime votingStartTime = issueTime.getStartTime();
+        LocalDateTime votingEndTime = issueTime.getEndTime();
+
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        // Check if the current time is within the allowed voting period for the current issue
+        if (currentTime.isBefore(votingStartTime) || currentTime.isAfter(votingEndTime)) {
+            throw new IllegalStateException("Voting is not allowed for this issue at this time.");
+        }
+
+        // Proceed with inserting the vote into the database
         String voteSql = "INSERT INTO votes (user_id, id, selected_option) VALUES (?, ?, ?) RETURNING vote_id ";
         try {
-            int newVoteId = template.queryForObject(voteSql, int.class, voteDTO.getUserId(), voteDTO.getIssueId(), voteDTO.getSelectedOption());
+            int newVoteId = template.queryForObject(voteSql, int.class, voteDTO.getUserId(), issueId, voteDTO.getSelectedOption());
             return getVoteById(newVoteId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server", e);

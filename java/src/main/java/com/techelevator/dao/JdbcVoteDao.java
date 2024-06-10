@@ -57,8 +57,7 @@ public class JdbcVoteDao implements VoteDao{
             while (rs.next()) {
                 int selectedOption = rs.getInt("selected_option");
                 int count = rs.getInt("vote_count");
-                voteCounts.put("selectedOption", selectedOption);
-                voteCounts.put("voteCount", count);
+                voteCounts.put("option" + selectedOption, count); // Adjusting the key pattern
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server", e);

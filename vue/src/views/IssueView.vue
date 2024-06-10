@@ -30,8 +30,8 @@
             </form>
             <div v-if="getResult(issue.id)">
               <h4>Results:</h4>
-              <p v-for="(result, index) in getResult(issue.id)" :key="index">
-                Option {{ index + 1 }}: {{ result }} votes
+              <p v-for="(votes, option) in getResult(issue.id)" :key="option">
+                {{ formatOption(issue, option) }}: {{ votes }} votes
               </p>
             </div>
           </div>
@@ -40,6 +40,7 @@
     </ul>
   </div>
 </template>
+
 
 <script>
 import IssueService from '../services/IssueService.js';
@@ -91,10 +92,11 @@ export default {
       IssueService.getResults(issueId)
         .then(response => {
           const resultIndex = this.results.findIndex(result => result.issueId === issueId);
+          const newResult = { issueId, data: response.data };
           if (resultIndex !== -1) {
-            this.results[resultIndex] = { issueId, data: response.data };
+            this.$set(this.results, resultIndex, newResult);
           } else {
-            this.results.push({ issueId, data: response.data });
+            this.results.push(newResult);
           }
         })
         .catch(error => {
@@ -104,6 +106,20 @@ export default {
     getResult(issueId) {
       const result = this.results.find(result => result.issueId === issueId);
       return result ? result.data : null;
+    },
+    formatOption(issue, option) {
+      switch(option) {
+        case 'option1':
+          return issue.option1;
+        case 'option2':
+          return issue.option2;
+        case 'option3':
+          return issue.option3;
+        case 'option4':
+          return issue.option4;
+        default:
+          return 'Unknown Option';
+      }
     }
   }
 };

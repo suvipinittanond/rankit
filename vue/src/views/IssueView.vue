@@ -29,19 +29,13 @@
               <button type="submit" class="submit-button">Submit Vote</button>
               <div class='issue-number'>ID#: {{ issue.id }}</div>
             </form>
-            <div v-if="getResult(issue.id)">
+             <div v-if="getResult(issue.id)">
               <h4>Results:</h4>
-              <p v-for="(votes, option) in getResult(issue.id)" :key="option">
-                {{ formatOption(issue, option) }}: {{ votes }} votes
-              </p>
+            <div v-for="(votes, option) in getResult(issue.id)" :key="option" class="bar-graph">
+             <div class="bar" :style="{ width: (votes * 10) + 'px' }"></div>
+              <span class="option-text">{{ formatOption(issue, option) }}: {{ votes }} votes</span>
+              </div>
             </div>
-            <div v-if="getResult(issue.id)">
-  <h4>Results:</h4>
-  <div v-for="(votes, option) in getResult(issue.id)" :key="option" class="bar-graph">
-    <div class="bar" :style="{ width: (votes * 10) + 'px' }"></div>
-    <span class="option-text">{{ formatOption(issue, option) }}: {{ votes }} votes</span>
-  </div>
-</div>
           </div>
         </div>
       </li>

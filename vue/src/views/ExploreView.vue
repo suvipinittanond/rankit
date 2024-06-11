@@ -144,6 +144,20 @@ export default {
 </script>
 
 <style scoped>
+
+.explore {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  background-color: #E4E4E4;
+  }
+
+h1 {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
 .issue-view {
   display: flex;
   flex-direction: column;

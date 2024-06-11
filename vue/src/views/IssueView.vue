@@ -137,6 +137,15 @@ export default {
 </script>
 
 <style scoped>
+
+.issues {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  background-color: #E4E4E4;
+}
 .issue-view {
   display: flex;
   flex-direction: column;

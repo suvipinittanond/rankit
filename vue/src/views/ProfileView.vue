@@ -1,10 +1,11 @@
 <template>
-    <div>
-  <h1>My Votes:</h1>
+    <div class='container'>
+  <h1>My Votes</h1>
   <ul class="vote-list">
       <li v-for="vote in votes" :key="vote.userId">
         <div class="vote-item">
-          <p>{{ vote.issueName }}</p>
+          <h2>{{ vote.issueName }}</h2>
+          <p>{{ vote.issueDescription }}</p>
           <p>You voted for: {{ vote.selectedOption }}</p>
         </div>
       </li>
@@ -42,7 +43,20 @@ export default {
   
   
   <style scoped>
+
+  .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  background-color: #E4E4E4;
+  }
 h1 {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+h2 {
   color: black;
   font-family: Arial, Helvetica, sans-serif;
 }

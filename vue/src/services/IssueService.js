@@ -34,5 +34,8 @@ export default {
 
     getIssuesByGroupId(groupId) {
       return axios.get(`/group/${groupId}`);
+    },
+    getGroups() {
+      return axios.get('/groups');
     }
   }

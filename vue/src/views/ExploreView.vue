@@ -24,7 +24,7 @@
     data() {
       return {
         groups: [], // Array to store selectable groups
-        selectedGroup: '', // ID of the selected group
+        selectedGroup: '', // Name of the selected group
         issues: [] // Array to store issues for the selected group
       };
     },
@@ -34,7 +34,6 @@
     methods: {
       loadGroups() {
         // Fetch selectable groups from the backend
-        // Assuming there is a method in IssueService to fetch groups
         IssueService.getGroups()
           .then(response => {
             this.groups = response.data;
@@ -45,8 +44,7 @@
       },
       loadIssuesByGroup() {
         // Fetch issues for the selected group from the backend
-        // Assuming there is a method in IssueService to fetch issues by group ID
-        IssueService.getIssuesByGroupId(this.selectedGroup)
+        IssueService.getGroupsByGroupName(this.selectedGroup)
           .then(response => {
             this.issues = response.data;
           })
@@ -56,8 +54,5 @@
       }
     }
   };
-  </script>
-  
-  <style scoped>
-  </style>
+</script>
   

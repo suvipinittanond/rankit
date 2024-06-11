@@ -95,10 +95,10 @@ public class IssueJdbcDAO implements IssueDAO {
     @Override
     public Issue updateIssue(IssueDTO issue) {
         Issue updatedIssue = null;
-        String updatedIssueSql = "UPDATE issue SET name = ?, description = ?, start_time = ?, end_time = ?, option1 = ?, option2 = ?, option3 = ?, option4 = ? WHERE id = ?";
+        String updatedIssueSql = "UPDATE issue SET name = ?, description = ?, start_time = ?, end_time = ?, option1 = ?, option2 = ?, option3 = ?, option4 = ?, group_id = ? WHERE id = ?";
         try {
 
-        int newUpdateId = template.update(updatedIssueSql, issue.getName(), issue.getDescription(), issue.getStart_time(), issue.getEnd_time(), issue.getOption1(), issue.getOption2(), issue.getOption3(), issue.getOption4(), issue.getId());
+        int newUpdateId = template.update(updatedIssueSql, issue.getName(), issue.getDescription(), issue.getStart_time(), issue.getEnd_time(), issue.getOption1(), issue.getOption2(), issue.getOption3(), issue.getOption4(), issue.getGroup_id(), issue.getId());
 
         if (newUpdateId > 0) {
             updatedIssue = getIssueById(issue.getId());

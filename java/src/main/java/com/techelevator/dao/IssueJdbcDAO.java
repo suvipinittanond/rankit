@@ -81,10 +81,10 @@ public class IssueJdbcDAO implements IssueDAO {
     @Override
     public Issue createIssue(IssueDTO issue) {
         Issue newIssue = null;
-        String insertIssueSql = "INSERT INTO issue (name, description, start_time, end_time, option1, option2, option3, option4) values (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+        String insertIssueSql = "INSERT INTO issue (name, description, start_time, end_time, option1, option2, option3, option4, group_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
         try {
             int newIssueId = template.queryForObject(insertIssueSql, int.class, issue.getName(), issue.getDescription(),
-                    issue.getStart_time(), issue.getEnd_time(), issue.getOption1(), issue.getOption2(), issue.getOption3(), issue.getOption4());
+                    issue.getStart_time(), issue.getEnd_time(), issue.getOption1(), issue.getOption2(), issue.getOption3(), issue.getOption4(), issue.getGroup_id());
             newIssue = getIssueById(newIssueId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server", e);

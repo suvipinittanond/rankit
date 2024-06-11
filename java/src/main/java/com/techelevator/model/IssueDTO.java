@@ -96,5 +96,14 @@ public class IssueDTO {
     @NotEmpty
     private String start_time;
 
+    public String getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(String group_id) {
+        this.group_id = group_id;
+    }
+
+    private String group_id;
 
 }

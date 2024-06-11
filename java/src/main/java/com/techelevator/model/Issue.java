@@ -14,6 +14,16 @@ public class Issue {
     private String option1;
     private String option2;
 
+    public String getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(String group_id) {
+        this.group_id = group_id;
+    }
+
+    private String group_id;
+
     public String getOption1() {
         return option1;
     }
@@ -60,7 +70,7 @@ public class Issue {
     private String groupId;
 
     public Issue(int id, String name, String description, String startTime, String endTime,
-                 String option1, String option2, String option3, String option4) {
+                 String option1, String option2, String option3, String option4, String group_id) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -70,6 +80,7 @@ public class Issue {
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
+        this.group_id = group_id;
     }
 
     public Issue() {

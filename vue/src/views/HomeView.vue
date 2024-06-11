@@ -15,11 +15,14 @@
           </div>
         </div>
         <div class="slideshow-container">
-          <div class="mySlides fade" v-for="(slide, index) in slides" :key="index" v-show="slideIndex === index">
+          <div v-for='image in slides' v-bind:key='image.imgSrc'>
+              <img v-bind:src='image.imgSrc' v-if='image.show'/>
+          </div>
+          <!-- <div class="mySlides fade" v-for="(slide, index) in slides" :key="index" v-show="slideIndex === index">
             <div class="numbertext">{{ index + 1 }} / {{ slides.length }}</div>
             <img :src="slide.imgSrc" style="width:100%">
             <div class="text">{{ slide.caption }}</div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -30,8 +33,8 @@
       return {
         slideIndex: 0,
         slides: [
-          { imgSrc: 'src/assets/yellow-fence-.png'},
-          { imgSrc: 'src/assets/LogoblackNoBG.png'}
+          { imgSrc: 'src/assets/yellow-fence-.png', show: false },
+          { imgSrc: 'src/assets/LogoblackNoBG.png', show: false }
         ]
       };
     },
@@ -43,17 +46,41 @@
         this.$router.push({ name: 'login' });
       },
       showSlides() {
-        let i;
-        const slides = document.getElementsByClassName("mySlides");
-        for (i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none";
+
+        // set everyone to false at the start of each cycle
+        // so that everything is hidden.
+        for(let i=0; i < this.slides.length; i++) {
+          this.slides[i].show = false;
         }
+
+        // set current index to true to display
+        this.slides[this.slideIndex].show = true;
+
+        // advanced the counter
         this.slideIndex++;
-        if (this.slideIndex > slides.length) {
-          this.slideIndex = 1;
+
+        if(this.slideIndex == this.slides.length) {
+          this.slideIndex = 0;
         }
-        slides[this.slideIndex - 1].style.display = "block";
+
+
         setTimeout(this.showSlides, 2000);
+
+
+
+        console.log('hi');
+
+        // let i;
+        // const slides = document.getElementsByClassName("mySlides");
+        // for (i = 0; i < slides.length; i++) {
+        //   slides[i].style.display = "none";
+        // }
+        // this.slideIndex++;
+        // if (this.slideIndex > slides.length) {
+        //   this.slideIndex = 1;
+        // }
+        // slides[this.slideIndex - 1].style.display = "block";
+        // setTimeout(this.showSlides, 2000);
       }
     }
   };

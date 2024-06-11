@@ -37,6 +37,7 @@ public class JdbcVoteDao implements VoteDao{
                 "FROM votes v " +
                 "JOIN issue i ON v.id = i.id " +
                 "WHERE v.user_id = ?";
+
         List<Vote> votes = new ArrayList<>();
         SqlRowSet rs = template.queryForRowSet(sql, userId);
         while (rs.next()) {
@@ -45,7 +46,6 @@ public class JdbcVoteDao implements VoteDao{
         }
         return votes;
     }
-
     private Vote mapRowToHistory(SqlRowSet rs) {
         Vote vote = new Vote();
         vote.setVoteID(rs.getInt("voteId"));

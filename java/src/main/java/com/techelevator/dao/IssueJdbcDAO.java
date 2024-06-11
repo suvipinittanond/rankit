@@ -44,6 +44,8 @@ public class IssueJdbcDAO implements IssueDAO {
         return issue;
     }
 
+
+
     @Override
     public List<Issue> getIssue() {
         List<Issue> issues = new ArrayList<>();

@@ -67,5 +67,6 @@ public class Vote {
     }
 
     public void setIssueDescription(String issueDescription) {
+        this.issueDescription = issueDescription;
     }
 }

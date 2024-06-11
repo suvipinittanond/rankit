@@ -6,7 +6,6 @@ import com.techelevator.model.IssueDTO;
 import java.util.List;
 
 public interface IssueDAO {
-    List<Issue> getAllGroups();
 
     List<Issue> getIssuesByGroupId(String groupId);
 

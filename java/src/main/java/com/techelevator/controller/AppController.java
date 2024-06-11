@@ -62,16 +62,7 @@ public class AppController {
         }
     }
 
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    @RequestMapping(path = "/groups", method = RequestMethod.GET)
-       public List<Issue> getAllGroups() {
-        List<Issue> issues = issueDAO.getAllGroups();
-        if (!issues.isEmpty()) {
-            return issues;
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
+
     @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(path = "/vote", method = RequestMethod.POST)
     public Vote createVote(@RequestBody VoteDTO voteDTO) {

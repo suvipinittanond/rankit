@@ -19,16 +19,6 @@ public class IssueJdbcDAO implements IssueDAO {
     }
 
     @Override
-    public List<Issue> getAllGroups() {
-        String sql = "SELECT group_id FROM issue";
-        List<Issue> groups = new ArrayList<>();
-        SqlRowSet rowSet = template.queryForRowSet(sql);
-        while (rowSet.next()) {
-            groups.add(mapRowToIssue(rowSet));
-        }
-        return groups;
-    }
-    @Override
     public List<Issue> getIssuesByGroupId(String groupId) {
         String sql = "SELECT * FROM issue WHERE group_id = ?";
         List<Issue> issues = new ArrayList<>();

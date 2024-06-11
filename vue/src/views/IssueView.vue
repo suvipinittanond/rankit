@@ -171,7 +171,7 @@ export default {
 }
 
 .issue-item {
-  background-color: #8FA9B1;
+  background-color: #7ba7bf;
   height: auto;
   width: 400px;
   padding: 40px;

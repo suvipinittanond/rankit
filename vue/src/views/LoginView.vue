@@ -99,7 +99,7 @@ h1 {
 .login-form {
   height: 200px;
   background-color: #c9c9c6; /* For browsers that do not support gradients */
-  background-image: linear-gradient(#d9d9dd, #6f8bb4);
+  background-image: linear-gradient(#77a5c4, #FFDB15);
   box-shadow: 0 2px 10px #020301;
   height: 400px;
   width: 350px;

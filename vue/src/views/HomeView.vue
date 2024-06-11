@@ -101,6 +101,10 @@
     max-width: 1200px;
     padding: 0 20px;
   }
+  h1{
+   font-size: 45px; 
+   padding-bottom: 15px;
+  }
   .welcome-container {
     max-width: 50%;
     padding: 20px;
@@ -122,7 +126,8 @@
   button {
     padding: 10px 20px;
     border-radius: 10px;
-    background-color: #FFDB15;
+    background-color: #e9db45;
+    box-shadow: 0 2px 5px #020301;
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;

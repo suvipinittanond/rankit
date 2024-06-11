@@ -105,7 +105,8 @@ h1 {
 }
 
 .register-form {
-  background-color: #c9c9c6;
+  background-color: #c9c9c6; /* For browsers that do not support gradients */
+  background-image: linear-gradient(#77a5c4, #FFDB15);
   box-shadow: 0 2px 10px #020301;
   height: 400px;
   width: 350px;

@@ -34,5 +34,9 @@ export default {
 
     getIssuesByGroupId(groupId) {
       return axios.get(`/group/${groupId}`);
+    },
+
+    getVotes(userId) {
+      return axios.get(`/votes/user/${userId}`);
     }
   }

@@ -9,6 +9,12 @@ public class Vote {
 
     private String issueName;
 
+    public String getIssueDescription() {
+        return issueDescription;
+    }
+
+    private String issueDescription;
+
 
     public int getUserId() {
         return userId;
@@ -58,5 +64,8 @@ public class Vote {
 
 
     public void setSelectedOptionText(String selectedOptionText) {
+    }
+
+    public void setIssueDescription(String issueDescription) {
     }
 }

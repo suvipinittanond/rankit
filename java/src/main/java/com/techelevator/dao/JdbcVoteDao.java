@@ -32,7 +32,8 @@ public class JdbcVoteDao implements VoteDao{
                 "       v.id AS voteId, " +
                 "       v.selected_option AS selectedOption, " +
                 "       i.id AS issueId, " +
-                "       i.name AS issueName " +
+                "       i.name AS issueName, " +
+                "       i.description AS issueDescription " +
                 "FROM votes v " +
                 "JOIN issue i ON v.id = i.id " +
                 "WHERE v.user_id = ?";
@@ -52,6 +53,7 @@ public class JdbcVoteDao implements VoteDao{
         vote.setIssueId(rs.getInt("issueId"));
         vote.setSelectedOption(rs.getInt("selectedOption"));
         vote.setIssueName(rs.getString("issueName"));
+        vote.setIssueDescription(rs.getString("issueDescription"));
         return vote;
     }
 

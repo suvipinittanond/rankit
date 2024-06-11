@@ -155,7 +155,7 @@ export default {
 }
 
 .issue-item {
-  background-color: #C9C9C6;
+  background-color: #8FA9B1;
   height: auto;
   width: 350px;
   padding: 40px;
@@ -174,7 +174,7 @@ h2 {
 
 h2:hover{
   color: black;
-  text-shadow: 0 0 15px lightblue, 0 0 15px lightblue;
+  text-shadow: 0 0 15px rgba(61, 84, 211, 0.712), 0 0 15px lightblue;
 }
 
 .vote-form {
@@ -211,7 +211,7 @@ h2:hover{
 }
 
 .submit-button:hover {
-  background-color: #8FA9B1;
+  background-color: #ffa115 ;
 }
 
 .option-text {
@@ -238,7 +238,7 @@ h2:hover{
 
 .bar {
   height: 20px;
-  background-color: #007BFF; /* Adjust color as needed */
+  background-color: #0b53a0; /* Adjust color as needed */
   margin-right: 5px;
 }
 

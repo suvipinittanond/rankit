@@ -57,7 +57,7 @@ h1 {
 }
 
 .vote-item {
-  background-color: #C9C9C6;
+  background-color: #C9C9C9;
   height: auto;
   width: 350px;
   padding: 40px;

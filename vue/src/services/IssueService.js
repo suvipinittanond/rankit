@@ -37,5 +37,8 @@ export default {
     },
     getGroups() {
       return axios.get('/groups');
-    }
+    },
+    getVotes(userId) {
+      return axios.get(`/votes/user/${userId}`);
+    },
   }

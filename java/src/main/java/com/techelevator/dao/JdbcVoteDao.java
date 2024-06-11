@@ -1,5 +1,4 @@
 package com.techelevator.dao;
-
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.IssueTime;
 import com.techelevator.model.IssueTimeMapper;

@@ -30,7 +30,7 @@
       return {
         slideIndex: 0,
         slides: [
-          { imgSrc: 'src/assets/LogoblackNoBG.png'},
+          { imgSrc: 'src/assets/yellow-fence-.png'},
           { imgSrc: 'src/assets/LogoblackNoBG.png'},
           { imgSrc: 'src/assets/LogoblackNoBG.png' }
         ]

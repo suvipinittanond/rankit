@@ -23,6 +23,11 @@ export default {
       votes: [],
     };
   },
+  computed: {
+  isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    }
+  },
   mounted() {
     this.loadVotes();
   },

@@ -10,7 +10,9 @@
         <router-link v-if="isAdmin" :to="{ name: 'createissue' }">Admin Portal</router-link>
         <router-link :to="{ name: 'issues' }">Issues</router-link>
         <router-link :to="{ name: 'explore' }">Explore</router-link>
+      <template v-if="isAuthenticated">
         <router-link :to="{ name: 'votes'}">My Profile</router-link>
+      </template>
       </div>
       <div id="left-links">
         <template v-if="isAuthenticated">

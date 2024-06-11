@@ -18,6 +18,10 @@
         <input type="description" id="description" style='height:40px'  v-model="issue.description" required />
       </div>
       <div class="form-input-group">
+        <label for="group_id">Group ID *</label>
+        <input type="group_id" id="group_id" v-model="issue.group_id" required />
+      </div>
+      <div class="form-input-group">
         <label for="start_time">Start Time *</label>
         <input type="datetime-local" id="start_time" v-model="issue.start_time" required />
       </div>
@@ -64,6 +68,7 @@ export default {
         id: '',
         name: '',
         description: '',
+        group_id: '',
         start_time: '',
         end_time: '',
         option1: '',
@@ -154,6 +159,7 @@ export default {
       this.issue = {
         name: '',
         description: '',
+        group_id: '',
         start_time: '',
         end_time: '',
         option1: '',

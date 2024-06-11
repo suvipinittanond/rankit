@@ -8,6 +8,7 @@
           <h2 @click="toggleIssue(issue.id)">{{ issue.name }}</h2>
           <div v-if="!issue.minimized">
             <p>{{ issue.description }}</p>
+            <template v-if="isAuthenticated">
             <form @submit.prevent="submitVote(issue.id)" class="vote-form">
               <div class="options">
                 <label class="option" v-if="issue.option1">
@@ -32,6 +33,7 @@
               <button type="submit" class="submit-button">Submit Vote</button>
               <div class='issue-number'>ID#: {{ issue.id }}</div>
             </form>
+          </template>
              <div v-if="getResult(issue.id)">
               <h4>Results:</h4>
             <div v-for="(votes, option) in getResult(issue.id)" :key="option" class="bar-graph">
@@ -61,6 +63,11 @@ export default {
   },
   created() {
     this.loadIssues();
+  },
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    }
   },
   methods: {
     
@@ -166,7 +173,7 @@ export default {
 .issue-item {
   background-color: #8FA9B1;
   height: auto;
-  width: 350px;
+  width: 400px;
   padding: 40px;
   margin-top: 30px;
   margin-bottom: 30px;

@@ -8,6 +8,7 @@ import RegisterView from '../views/RegisterView.vue';
 import CreateView from '../views/CreateView.vue';
 import IssueView from '../views/IssueView.vue';
 import ProfileView from '../views/ProfileView.vue';
+import ExploreView from '../views/ExploreView.vue';
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
  * inside of App.vue depending on the URL.
@@ -81,6 +82,14 @@ const routes = [
     component: ProfileView,
     meta: {
       requiresAuth: false 
+    }
+  },
+  {
+    path: '/explore',
+    name: "explore",
+    component: ExploreView,
+    meta: {
+      requiresAuth: false
     }
   }
 ];

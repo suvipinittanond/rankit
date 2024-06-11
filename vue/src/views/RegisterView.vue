@@ -89,8 +89,8 @@ label {
 
 h1 {
   text-align: center;
-  padding-bottom: 10px;
-
+  padding-top: 15px;
+  padding-bottom: 5px;
 }
 
 .text-center {

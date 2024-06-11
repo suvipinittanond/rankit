@@ -18,7 +18,7 @@
         <input type="description" id="description" style='height:40px'  v-model="issue.description" required />
       </div>
       <div class="form-input-group">
-        <label for="group_id">Group ID *</label>
+        <label for="group_id">Category Tag *</label>
         <input type="group_id" id="group_id" v-model="issue.group_id" required />
       </div>
       <div class="form-input-group">

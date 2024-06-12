@@ -111,6 +111,7 @@ h1 {
   height: 400px;
   width: 350px;
   border-radius: 40px;
+  padding-bottom: 40px;
 }
 
 label {

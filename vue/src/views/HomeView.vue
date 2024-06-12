@@ -33,8 +33,8 @@
       return {
         slideIndex: 0,
         slides: [
-          { imgSrc: 'src/assets/yellow-fence-.png', show: false },
-          { imgSrc: 'src/assets/rankItLaptopImage.png', show: false },
+          { imgSrc: 'src/assets/yellowFencePhoto.png', show: false },
+          { imgSrc: 'src/assets/rankItLaptopImage (1).png', show: false },
           { imgSrc: 'src/assets/LogoblackNoBG.png', show: false }
 
         ]

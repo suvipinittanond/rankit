@@ -1,18 +1,18 @@
 <template>
-    <div class='container'>
-  <h1>My Votes</h1>
-  <ul class="vote-list">
+  <div class='container'>
+    <h1>My Votes</h1>
+    <ul class="vote-list">
       <li v-for="vote in votes" :key="vote.userId">
         <div class="vote-item">
           <h2>{{ vote.issueName }}</h2>
           <p>{{ vote.issueDescription }}</p>
-          <p>You voted for: {{ optionName }}</p>
+          <!-- Access vote.optionName here -->
+          <p>You voted for: {{ vote.optionName }}</p>
         </div>
       </li>
-  </ul>
-    </div>
-
-  </template>
+    </ul>
+  </div>
+</template>
   
   <script>
 import IssueService from '../services/IssueService';
@@ -33,6 +33,7 @@ export default {
   mounted() {
     this.loadVotes();
     this.loadIssues();
+    this.voteToIssue();
   },
   methods: {
     selectUserOption(vote) {
@@ -59,20 +60,49 @@ export default {
           console.error('Error loading issues:', error);
         });
     },
-    voteToIssue() {
+    async voteToIssue() {
+        // Fetch votes data
+        const votesResponse = await IssueService.getVotes(this.$store.state.user.id);
+        const votesData = votesResponse.data;
+        console.log("Votes data:", votesData);
 
-      this.votes = this.votes.map(vote => {
-        const issue = this.issue.find(issue => issue.id === vote.issueId);
-        const updatedOption = 'option' + vote.selectedOption;
-        const optionName = issue.updatedOption;
+        // Fetch issues data
+        const issuesResponse = await IssueService.getIssues();
+        const issuesData = issuesResponse.data;
+        console.log("Issues data:", issuesData);
 
-        return {
-            ...vote,
-            optionName: optionName 
-      };
-    });
+        // Iterate over each vote
+        this.votes = votesData.map(vote => {
+            // Find the corresponding issue
+            const issue = issuesData.find(issue => issue.id === vote.id);
+
+            // Determine the option name based on selected_option
+            let optionName = "";
+            switch (vote.selected_option) {
+                case 1:
+                    optionName = issue.option1;
+                    break;
+                case 2:
+                    optionName = issue.option2;
+                    break;
+                case 3:
+                    optionName = issue.option3;
+                    break;
+                case 4:
+                    optionName = issue.option4;
+                    break;
+                default:
+                    optionName = "Unknown Option";
+            }
+
+            // Assign the option name to the vote object
+            return {
+                ...vote,
+                optionName: optionName
+            };
+        });
+    }
   }
-}
 }
   </script>
   

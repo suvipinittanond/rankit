@@ -41,11 +41,11 @@
                 <div class='issue-cat'>Category: {{ issue.groupId }} </div>
               </form>
               <div v-if="getResult(issue.id)">
-                <h4>Results:</h4>
-                <div v-for="(votes, option) in getResult(issue.id)" :key="option" class="bar-graph">
-                  <div class="bar" :style="{ width: (votes * 10) + 'px' }"></div>
-                  <span class="option-text">{{ formatOption(issue, option) }}: {{ votes }} votes</span>
-                </div>
+              <h4>Results:</h4>
+              <div v-for="(votes, option) in getResult(issue.id)" :key="option" class="bar-graph">
+              <div class="bar" :style="{ width: (votes * 10) + 'px', backgroundColor: getBarColor(issue, option) }"></div>
+               <span class="option-text">{{ formatOption(issue, option) }}: {{ votes }} votes</span>
+              </div>
               </div>
             </div>
           </div>
@@ -65,7 +65,8 @@ export default {
       selectedGroup: '',
       issues: [],
       selectedOption: '',
-      results: []
+      results: [],
+      colors: ['#FF5733', '#33FF57', '#5733FF', '#33FFFF', '#FF33FF', '#FFFF33', '#3399FF', '#FF3333', '#33FF99', '#FF9933'],
     };
   },
   created() {
@@ -83,6 +84,10 @@ export default {
         .catch(error => {
           console.error('Error loading groups:', error);
         });
+    },
+    getBarColor(issue, option) {
+      const index = Object.keys(this.getResult(issue.id)).indexOf(option);
+      return this.colors[index % this.colors.length];
     },
     loadIssuesByGroup() {
       IssueService.getIssuesByGroupId(this.selectedGroup)

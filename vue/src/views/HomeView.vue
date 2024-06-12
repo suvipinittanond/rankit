@@ -33,9 +33,9 @@
       return {
         slideIndex: 0,
         slides: [
-          { imgSrc: 'src/assets/yellowFencePhoto.png', show: false },
-          { imgSrc: 'src/assets/rankItLaptopImage (1).png', show: false },
-          { imgSrc: 'src/assets/LogoblackNoBG.png', show: false }
+          { imgSrc: 'src/assets/rankItLaptopImage.gif', show: false },
+          { imgSrc: 'src/assets/yellowFencePhoto.gif', show: false },
+          { imgSrc: 'src/assets/RankIt4.gif', show: false },
 
         ]
       };
@@ -66,11 +66,7 @@
         }
 
 
-        setTimeout(this.showSlides, 2000);
-
-
-
-        console.log('hi');
+        setTimeout(this.showSlides, 3000);
 
         // let i;
         // const slides = document.getElementsByClassName("mySlides");

@@ -65,7 +65,7 @@ export default {
       issues: [],
       selectedOption: '',
       results: [],
-      colors: ['#FF5733', '#33FF57', '#5733FF', '#33FFFF', '#FF33FF', '#FFFF33', '#3399FF', '#FF3333', '#33FF99', '#FF9933'],
+      colors: ['#2978BB', '#025EAB', '#004074', '#00294B', '#FF33FF', '#FFFF33', '#3399FF', '#FF3333', '#33FF99', '#FF9933'],
     };
   },
   created() {

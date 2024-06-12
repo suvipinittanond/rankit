@@ -123,7 +123,8 @@ button {
   border-radius: 10px;
   background-color: #8FA9B1;
   font-size: 15px;
-  font-family: Arial, Helvetica, sans-serif
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {

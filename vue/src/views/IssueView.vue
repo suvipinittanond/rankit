@@ -236,6 +236,7 @@ h2:hover{
   margin-top: 20px;
   border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .submit-button:hover {
@@ -253,6 +254,7 @@ h2:hover{
   margin-top: 10px;
   border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .view-results-button:hover {

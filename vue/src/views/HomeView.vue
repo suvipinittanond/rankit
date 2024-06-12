@@ -34,7 +34,9 @@
         slideIndex: 0,
         slides: [
           { imgSrc: 'src/assets/yellow-fence-.png', show: false },
+          { imgSrc: 'src/assets/rankItLaptopImage.png', show: false },
           { imgSrc: 'src/assets/LogoblackNoBG.png', show: false }
+
         ]
       };
     },
@@ -124,14 +126,15 @@
     margin-top: 20px;
   }
   button {
-    padding: 10px 20px;
-    border-radius: 10px;
-    background-color: #e9db45;
-    box-shadow: 0 2px 5px #020301;
-    font-size: 20px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    background-color: #ffd700;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
     border: none;
+    transition: background-color 0.3s ease;
   }
   button:hover {
     background-color: #8FA9B1;

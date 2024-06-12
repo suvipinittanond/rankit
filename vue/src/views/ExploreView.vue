@@ -17,34 +17,34 @@
               <p>{{ issue.description }}</p>
               <form @submit.prevent="submitVote(issue.id)" class="vote-form">
                 <div class="options">
-                <label class="option" v-if="issue.option1">
-                  <input type="radio" v-model="selectedOption.issueID" value="1" class="radio-input">
-                  <span class="option-text">{{ issue.option1 }}</span>
-                </label>
-                <label class="option" v-if="issue.option2">
-                  <input type="radio" v-model="selectedOption.issueID" value="2" class="radio-input">
-                  <span class="option-text">{{ issue.option2 }}</span>
-                </label>
-                <label class="option" v-if="issue.option3">
-                  <input type="radio" v-model="selectedOption.issueID" value="3" class="radio-input">
-                  <span class="option-text">{{ issue.option3 }}</span>
-                </label>
-                <label class="option" v-if="issue.option4">
-                  <input type="radio" v-model="selectedOption.issueID" value="4" class="radio-input">
-                  <span class="option-text">{{ issue.option4 }}</span>
-                </label>
-              </div>
+                  <label class="option" v-if="issue.option1">
+                    <input type="radio" v-model="selectedOption" :value="'1'" class="radio-input">
+                    <span class="option-text">{{ issue.option1 }}</span>
+                  </label>
+                  <label class="option" v-if="issue.option2">
+                    <input type="radio" v-model="selectedOption" :value="'2'" class="radio-input">
+                    <span class="option-text">{{ issue.option2 }}</span>
+                  </label>
+                  <label class="option" v-if="issue.option3">
+                    <input type="radio" v-model="selectedOption" :value="'3'" class="radio-input">
+                    <span class="option-text">{{ issue.option3 }}</span>
+                  </label>
+                  <label class="option" v-if="issue.option4">
+                    <input type="radio" v-model="selectedOption" :value="'4'" class="radio-input">
+                    <span class="option-text">{{ issue.option4 }}</span>
+                  </label>
+                </div>
                 <div class="timelimit"><strong>VOTING ENDS {{ formatEndTime(issue.endTime) }}</strong></div>
                 <button type="submit" class="submit-button">Submit Vote</button>
+                <button type="button" class="view-results-button" @click="showResults(issue.id)">View Results</button>
                 <div class='issue-number'>ID#: {{ issue.id }} </div>
-                <div class ='issue-cat'>Category: {{  issue.groupId}}  </div>
-             
+                <div class='issue-cat'>Category: {{ issue.groupId }} </div>
               </form>
               <div v-if="getResult(issue.id)">
                 <h4>Results:</h4>
                 <div v-for="(votes, option) in getResult(issue.id)" :key="option" class="bar-graph">
                   <div class="bar" :style="{ width: (votes * 10) + 'px' }"></div>
-                  <span class="option-text">{{ option }}: {{ votes }} votes</span>
+                  <span class="option-text">{{ formatOption(issue, option) }}: {{ votes }} votes</span>
                 </div>
               </div>
             </div>
@@ -64,7 +64,7 @@ export default {
       groups: [],
       selectedGroup: '',
       issues: [],
-      selectedOption: { issueID: '' },
+      selectedOption: '',
       results: []
     };
   },
@@ -97,12 +97,12 @@ export default {
         });
     },
     submitVote(issueId) {
-      const selectedOption = this.selectedOption.issueID;
+      const selectedOption = this.selectedOption;
       const userId = this.$store.state.user.id;
       IssueService.submitVote(issueId, selectedOption, userId)
         .then(() => {
           console.log('Vote submitted successfully');
-          this.showResults(issueId);
+          this.showResults(issueId); // Fetch and display the updated results
         })
         .catch(error => {
           console.error('Error submitting vote:', error);
@@ -135,7 +135,18 @@ export default {
       return result ? result.data : null;
     },
     formatOption(issue, option) {
-      return issue[option];
+      switch (option) {
+        case 'option1':
+          return issue.option1;
+        case 'option2':
+          return issue.option2;
+        case 'option3':
+          return issue.option3;
+        case 'option4':
+          return issue.option4;
+        default:
+          return 'Unknown Option';
+      }
     },
     formatEndTime(endTime) {
       const date = new Date(Date.parse(endTime));
@@ -146,20 +157,20 @@ export default {
 </script>
 
 <style scoped>
-
 .explore {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; 
+  min-height: 100vh;
   background-color: #E4E4E4;
-  }
+}
 
 h1 {
   color: black;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .issue-view {
   display: flex;
   flex-direction: column;
@@ -195,7 +206,7 @@ h2 {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-h2:hover{
+h2:hover {
   color: black;
   text-shadow: 0 0 15px lightblue, 0 0 15px lightblue;
 }
@@ -235,6 +246,23 @@ h2:hover{
 
 .submit-button:hover {
   background-color: #8FA9B1;
+}
+
+.view-results-button {
+  background-color: #00BFFF;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.view-results-button:hover {
+  background-color: #007ACC;
 }
 
 .option-text {
@@ -289,6 +317,8 @@ h1 {
   border-radius: 5px;
 }
 </style>
+
+
 
 
 

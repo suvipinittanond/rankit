@@ -1,7 +1,6 @@
 <template>
   <div class="issues">
     <h1>Active Issues</h1>
-   
     <ul class="issue-list">
       <li v-for="issue in issues" :key="issue.id">
         <div class="issue-item">
@@ -9,42 +8,43 @@
           <div v-if="!issue.minimized">
             <p>{{ issue.description }}</p>
             <template v-if="isAuthenticated">
-            <form @submit.prevent="submitVote(issue.id)" class="vote-form">
-              <div class="options">
-                <label class="option" v-if="issue.option1">
-                  <input type="radio" v-model="selectedOption.issueID" value="1" class="radio-input">
-                  <span class="option-text">{{ issue.option1 }}</span>
-                </label>
-                <label class="option" v-if="issue.option2">
-                  <input type="radio" v-model="selectedOption.issueID" value="2" class="radio-input">
-                  <span class="option-text">{{ issue.option2 }}</span>
-                </label>
-                <label class="option" v-if="issue.option3">
-                  <input type="radio" v-model="selectedOption.issueID" value="3" class="radio-input">
-                  <span class="option-text">{{ issue.option3 }}</span>
-                </label>
-                <label class="option" v-if="issue.option4">
-                  <input type="radio" v-model="selectedOption.issueID" value="4" class="radio-input">
-                  <span class="option-text">{{ issue.option4 }}</span>
-                </label>
-              </div>
-              <div class="timelimit" ><strong>VOTING ENDS {{ formatEndTime(issue.endTime) }} </strong></div>
-              <button type="submit" class="submit-button">Submit Vote</button>
-              <div class='issue-number'>ID#: {{ issue.id }}   </div>
-              <div class ='issue-cat'>Category: {{  issue.groupId}}  </div>
-            </form>
-          </template>
-          <template v-if="!isAuthenticated">
-                <p class='sign-up'>
-                <router-link v-bind:to="{ name: 'register' }">Sign up to vote now!</router-link></p>
-              </template>
-             <div v-if="getResult(issue.id)">
+              <form @submit.prevent="submitVote(issue.id)" class="vote-form">
+                <div class="options">
+                  <label class="option" v-if="issue.option1">
+                    <input type="radio" v-model="selectedOption.issueID" value="1" class="radio-input">
+                    <span class="option-text">{{ issue.option1 }}</span>
+                  </label>
+                  <label class="option" v-if="issue.option2">
+                    <input type="radio" v-model="selectedOption.issueID" value="2" class="radio-input">
+                    <span class="option-text">{{ issue.option2 }}</span>
+                  </label>
+                  <label class="option" v-if="issue.option3">
+                    <input type="radio" v-model="selectedOption.issueID" value="3" class="radio-input">
+                    <span class="option-text">{{ issue.option3 }}</span>
+                  </label>
+                  <label class="option" v-if="issue.option4">
+                    <input type="radio" v-model="selectedOption.issueID" value="4" class="radio-input">
+                    <span class="option-text">{{ issue.option4 }}</span>
+                  </label>
+                </div>
+                <div class="timelimit"><strong>VOTING ENDS {{ formatEndTime(issue.endTime) }}</strong></div>
+                <button type="submit" class="submit-button">Submit Vote</button>
+                <button type="button" class="view-results-button" @click="showResults(issue.id)">View Results</button>
+                <div class='issue-number'>ID#: {{ issue.id }}</div>
+                <div class='issue-cat'>Category: {{ issue.groupId }}</div>
+              </form>
+            </template>
+            <template v-if="!isAuthenticated">
+              <p class='sign-up'>
+                <router-link v-bind:to="{ name: 'register' }">Sign up to vote now!</router-link>
+              </p>
+            </template>
+            <div v-if="getResult(issue.id)">
               <h4>Results:</h4>
-            <div v-for="(votes, option) in getResult(issue.id)" :key="option" class="bar-graph">
-             <div class="bar" :style="{ width: (votes * 10) + 'px' }"></div>
-              <span class="option-text">{{ formatOption(issue, option) }}: {{ votes }} votes</span>
+              <div v-for="(votes, option) in getResult(issue.id)" :key="option" class="bar-graph">
+                <div class="bar" :style="{ width: (votes * 10) + 'px' }"></div>
+                <span class="option-text">{{ formatOption(issue, option) }}: {{ votes }} votes</span>
               </div>
-              
             </div>
           </div>
         </div>
@@ -52,6 +52,8 @@
     </ul>
   </div>
 </template>
+
+
 
 
 <script>
@@ -74,7 +76,6 @@ export default {
     }
   },
   methods: {
-    
     loadIssues() {
       IssueService.getIssues()
         .then(response => {
@@ -126,7 +127,7 @@ export default {
       return result ? result.data : null;
     },
     formatOption(issue, option) {
-      switch(option) {
+      switch (option) {
         case 'option1':
           return issue.option1;
         case 'option2':
@@ -139,13 +140,15 @@ export default {
           return 'Unknown Option';
       }
     },
-    formatEndTime(endTime) { 
-      const date = new Date(Date.parse(endTime)); 
+    formatEndTime(endTime) {
+      const date = new Date(Date.parse(endTime));
       return date.toLocaleString();
-  }
+    }
   }
 };
 </script>
+
+
 
 <style scoped>
 
@@ -234,6 +237,23 @@ h2:hover{
   background-color: #ffa115 ;
 }
 
+.view-results-button {
+  background-color: #00BFFF;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.view-results-button:hover {
+  background-color: #007ACC;
+}
+
 .option-text {
   font-size: 16px;
 }
@@ -249,6 +269,7 @@ h2:hover{
   padding: 18px;
   border-radius: 5px;
 }
+
 .issue-cat {
   position: absolute;
   top: 15px;
@@ -285,5 +306,4 @@ h1 {
   padding-top: 20px;
 }
 </style>
-
 

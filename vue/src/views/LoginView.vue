@@ -94,6 +94,7 @@ h1 {
   background-color: #E4E4E4;
   height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 40x;
 }
 
 .login-form {
@@ -104,6 +105,8 @@ h1 {
   height: 400px;
   width: 350px;
   border-radius: 40px;
+  padding-bottom: 40x;
+  
 }
 
 label {

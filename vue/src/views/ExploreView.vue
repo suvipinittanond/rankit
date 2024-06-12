@@ -2,7 +2,7 @@
   <div class="explore">
     <h1>Explore Issues</h1>
     <div>
-      <select v-model="selectedGroup" @change="loadIssuesByGroup">
+      <select v-model="selectedGroup" @change="loadIssuesByGroup" class="dropdown">
         <option value="">Select a group</option>
         <option v-for="group in groups" :key="group.groupId" :value="group.groupId">{{ group.groupId }}</option>
       </select>
@@ -320,6 +320,16 @@ h1 {
   padding: 18px;
   border-radius: 5px;
 }
+
+.dropdown {
+  width: 250px; 
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid black; 
+  border-radius: 5px;
+  background-color: white;
+}
+
 </style>
 
 

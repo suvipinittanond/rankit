@@ -28,10 +28,10 @@
                   <span class="option-text">{{ issue.option4 }}</span>
                 </label>
               </div>
-              
               <div class="timelimit" ><strong>VOTING ENDS {{ formatEndTime(issue.endTime) }} </strong></div>
               <button type="submit" class="submit-button">Submit Vote</button>
-              <div class='issue-number'>ID#: {{ issue.id }}</div>
+              <div class='issue-number'>ID#: {{ issue.id }}   </div>
+              <div class ='issue-cat'>Category: {{  issue.groupId}}  </div>
             </form>
           </template>
              <div v-if="getResult(issue.id)">
@@ -242,6 +242,13 @@ h2:hover{
   position: absolute;
   top: 15px;
   right: 25px;
+  padding: 18px;
+  border-radius: 5px;
+}
+.issue-cat {
+  position: absolute;
+  top: 15px;
+  left: 25px;
   padding: 18px;
   border-radius: 5px;
 }

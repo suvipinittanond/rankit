@@ -33,9 +33,13 @@ public class JdbcVoteDao implements VoteDao{
                 "       v.selected_option AS selectedOption, " +
                 "       i.id AS issueId, " +
                 "       i.name AS issueName, " +
-                "       i.description AS issueDescription " +
+                "       i.description AS issueDescription, " +
+                "       i.option1 AS issueOption1, " +
+                "       i.option2 AS issueOption2, " +
+                "       i.option3 AS issueOption3, " +
+                "       i.option4 AS issueOption4 " +
                 "FROM votes v " +
-                "JOIN issue i ON v.id = i.id " +
+                "JOIN issue i ON v.id = i.id " + // Make sure the join condition is correct
                 "WHERE v.user_id = ?";
 
         List<Vote> votes = new ArrayList<>();
@@ -46,6 +50,12 @@ public class JdbcVoteDao implements VoteDao{
         }
         return votes;
     }
+
+    @Override
+    public Vote getVoteById(int voteId) {
+        return null;
+    }
+
     private Vote mapRowToHistory(SqlRowSet rs) {
         Vote vote = new Vote();
         vote.setVoteID(rs.getInt("voteId"));
@@ -54,24 +64,34 @@ public class JdbcVoteDao implements VoteDao{
         vote.setSelectedOption(rs.getInt("selectedOption"));
         vote.setIssueName(rs.getString("issueName"));
         vote.setIssueDescription(rs.getString("issueDescription"));
-        return vote;
-    }
+        vote.setIssueOption1(rs.getString("issueOption1"));
+        vote.setIssueOption2(rs.getString("issueOption2"));
+        vote.setIssueOption3(rs.getString("issueOption3"));
+        vote.setIssueOption4(rs.getString("issueOption4"));
 
-
-    @Override
-    public Vote getVoteById(int voteId) {
-        Vote vote = null;
-        String sql = "SELECT * FROM votes WHERE id = ?";
-        try {
-            SqlRowSet rs = template.queryForRowSet(sql, voteId);
-            if (rs.next()) {
-                vote = mapRowToVote(rs);
-            }
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server", e);
+        // Determine the option name based on selectedOption
+        String optionName;
+        switch (rs.getInt("selectedOption")) {
+            case 1:
+                optionName = rs.getString("issueOption1");
+                break;
+            case 2:
+                optionName = rs.getString("issueOption2");
+                break;
+            case 3:
+                optionName = rs.getString("issueOption3");
+                break;
+            case 4:
+                optionName = rs.getString("issueOption4");
+                break;
+            default:
+                optionName = "Unknown Option";
         }
+        vote.setOptionName(optionName);
+
         return vote;
     }
+
 
     @Override
     public Vote createVote(VoteDTO voteDTO) {

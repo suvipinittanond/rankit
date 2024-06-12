@@ -130,4 +130,11 @@ button:hover {
 
 }
 
+.sign-up {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
 </style>

@@ -34,6 +34,10 @@
               <div class ='issue-cat'>Category: {{  issue.groupId}}  </div>
             </form>
           </template>
+          <template v-if="!isAuthenticated">
+                <p class='sign-up'>
+                <router-link v-bind:to="{ name: 'register' }">Sign up to vote now!</router-link></p>
+              </template>
              <div v-if="getResult(issue.id)">
               <h4>Results:</h4>
             <div v-for="(votes, option) in getResult(issue.id)" :key="option" class="bar-graph">

@@ -1,14 +1,13 @@
 <template>
   <div class="explore">
-    <h1>Explore Issues:</h1>
+    <h1>Explore Issues</h1>
     <div>
       <select v-model="selectedGroup" @change="loadIssuesByGroup">
         <option value="">Select a group</option>
         <option v-for="group in groups" :key="group.groupId" :value="group.groupId">{{ group.groupId }}</option>
       </select>
-    </div>
+  </div>
     <div v-if="selectedGroup">
-      <h2>Issues for {{ selectedGroup }}</h2>
       <ul class="issue-list">
         <li v-for="issue in issues" :key="issue.id">
           <div class="issue-item">
@@ -165,11 +164,11 @@ export default {
 .explore {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   min-height: 100vh;
   background-color: #E4E4E4;
 }
+
 
 h1 {
   color: black;

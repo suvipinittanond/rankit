@@ -6,18 +6,16 @@
         <img src="src/assets/RankItWhiteNoBG.png" alt="Logo" id="logo">
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
       </a>
-      <div id="right-links">
-        <router-link v-if="isAdmin" :to="{ name: 'createissue' }">Admin Portal</router-link>
-        <router-link :to="{ name: 'issues' }">Issues</router-link>
+      <!-- <div id="right-links"> -->
         <router-link :to="{ name: 'explore' }">Explore</router-link>
-      <template v-if="isAuthenticated">
-        <router-link :to="{ name: 'votes'}">My Profile</router-link>
-      </template>
-      </div>
-      <div id="left-links">
+        <router-link :to="{ name: 'issues' }">Issues</router-link>
+        <router-link v-if="isAdmin" :to="{ name: 'createissue' }">Admin Portal</router-link>
+      <!-- </div> -->
+      <div id="right-links">
         <template v-if="isAuthenticated">
-          
-          <router-link :to="{ name: 'logout' }">Logout</router-link>
+        <router-link :to="{ name: 'votes'}">My Profile</router-link>
+
+        <router-link :to="{ name: 'logout' }">Logout</router-link>
 
         </template>
         <template v-else>
@@ -53,7 +51,7 @@ body{
   overflow: hidden;
   background-color: #020301;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
 }
 #topnav a {
@@ -71,7 +69,8 @@ body{
   height: 50px;
   margin-left: 150px;
 }
-#left-links {
-  margin-right: 200px;
+#right-links {
+  position: absolute;
+  right: 100px;
 }
 </style>

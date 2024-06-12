@@ -6,7 +6,7 @@
         <div class="vote-item">
           <h2>{{ vote.issueName }}</h2>
           <p>{{ vote.issueDescription }}</p>
-          <p>You voted for: {{ vote.selectedOption }}</p>
+          <p>You voted for: {{ optionName }}</p>
         </div>
       </li>
   </ul>
@@ -21,6 +21,8 @@ export default {
   data() {
     return {
       votes: [],
+      issues: [],
+      userOption: null
     };
   },
   computed: {
@@ -30,8 +32,12 @@ export default {
   },
   mounted() {
     this.loadVotes();
+    this.loadIssues();
   },
   methods: {
+    selectUserOption(vote) {
+      this.userOption = vote.issueId;
+    },
     loadVotes(){
       const userId = this.$store.state.user.id;
       IssueService.getVotes(userId)
@@ -40,10 +46,34 @@ export default {
           ...votes
         }))
       })
-    }
+    },
+    loadIssues() {
+      IssueService.getIssues()
+        .then(response => {
+          this.issues = response.data.map(issue => ({
+            ...issue,
+            minimized: true
+          }));
+        })
+        .catch(error => {
+          console.error('Error loading issues:', error);
+        });
+    },
+    voteToIssue() {
+
+      this.votes = this.votes.map(vote => {
+        const issue = this.issue.find(issue => issue.id === vote.issueId);
+        const updatedOption = 'option' + vote.selectedOption;
+        const optionName = issue.updatedOption;
+
+        return {
+            ...vote,
+            optionName: optionName 
+      };
+    });
   }
 }
-
+}
   </script>
   
   

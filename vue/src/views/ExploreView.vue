@@ -3,7 +3,7 @@
     <h1>Explore Issues</h1>
     <div>
       <select v-model="selectedGroup" @change="loadIssuesByGroup" class="dropdown">
-        <option value="">Select a group</option>
+        <option value="">Select a Category</option>
         <option v-for="group in groups" :key="group.groupId" :value="group.groupId">{{ group.groupId }}</option>
       </select>
   </div>

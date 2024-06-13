@@ -11,7 +11,7 @@
             </h3>
           </div>
           <div class='join-button'>
-            <button v-on:click='loginButton'>Join the Community Today!</button>
+            <button v-on:click='registerButton'>Join the Community Today!</button>
           </div>
         </div>
         <div class="slideshow-container">
@@ -44,8 +44,8 @@
       this.showSlides();
     },
     methods: {
-      loginButton() {
-        this.$router.push({ name: 'login' });
+      registerButton() {
+        this.$router.push({ name: 'register' });
       },
       showSlides() {
 

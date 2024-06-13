@@ -1,6 +1,6 @@
 <template>
   <div class="issues">
-    <h1>Active Issues</h1>
+    <h1>Issues</h1>
     <ul class="issue-list">
       <li v-for="issue in issues" :key="issue.id">
         <div class="issue-item">
@@ -65,7 +65,7 @@ export default {
       issues: [],
       selectedOption: { issueID: 0 },
       results: [],
-      colors: ['#2978BB', '#025EAB', '#004074', '#00294B', '#FF33FF', '#FFFF33', '#3399FF', '#FF3333', '#33FF99', '#FF9933'],
+      colors: ['#FF5733', '#33FF57', '#5733FF', '#33FFFF', '#FF33FF', '#FFFF33', '#3399FF', '#FF3333', '#33FF99', '#FF9933'],
     };
   },
   created() {

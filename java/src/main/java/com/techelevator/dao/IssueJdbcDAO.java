@@ -116,9 +116,10 @@ public class IssueJdbcDAO implements IssueDAO {
 
         try {
             // Execute the first delete query
-            int deleteID1 = template.update(deletesql, IssueId);
             // Execute the second delete query
             int deleteID2 = template.update(deletesql2, IssueId);
+
+            int deleteID1 = template.update(deletesql, IssueId);
 
             // Check if any rows were affected by either of the delete queries
             if (deleteID1 == 0 && deleteID2 == 0) {
